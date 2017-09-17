@@ -230,9 +230,6 @@ Configure miss: if MCA component dl:libltdl can compile
 Configure miss: if MCA component event:external can compile
 Configure miss: WIN32
 Configure miss: CYGWIN
-Configure miss: openssl/bio.h usability
-Configure miss: openssl/bio.h presence
-Configure miss: openssl/bio.h
 Configure miss: sys/event.h usability
 Configure miss: sys/event.h presence
 Configure miss: sys/event.h
