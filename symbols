@@ -7515,11 +7515,6 @@ libopen-pal.so.20:opal_argv_prepend_nosize
 libopen-pal.so.20:opal_argv_split
 libopen-pal.so.20:opal_argv_split_with_empty
 libopen-pal.so.20:opal_asprintf
-libopen-pal.so.20:opal_atomic_cmpset_32
-libopen-pal.so.20:opal_atomic_cmpset_64
-libopen-pal.so.20:opal_atomic_mb
-libopen-pal.so.20:opal_atomic_rmb
-libopen-pal.so.20:opal_atomic_wmb
 libopen-pal.so.20:opal_backtrace_buffer
 libopen-pal.so.20:opal_backtrace_print
 libopen-pal.so.20:opal_basename
@@ -8377,7 +8372,6 @@ libopen-pal.so.20:opal_stackframe_output_string
 libopen-pal.so.20:opal_strerror
 libopen-pal.so.20:opal_strerror_r
 libopen-pal.so.20:opal_strncpy
-libopen-pal.so.20:opal_sys_timer_get_cycles
 libopen-pal.so.20:opal_thread_get_self
 libopen-pal.so.20:opal_thread_join
 libopen-pal.so.20:opal_thread_kill

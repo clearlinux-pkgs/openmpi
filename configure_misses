@@ -1,5 +1,4 @@
 Configure miss: if want to run code coverage
-Configure miss: if want to compile with branch probabilities
 Configure miss: if want to debug memory usage
 Configure miss: if want to profile memory usage
 Configure miss: if want developer-level compiler pickyness
@@ -38,10 +37,11 @@ Configure miss: Linux locations
 Configure miss: Solaris locations
 Configure miss: Java support available
 Configure miss: if want Java bindings
+Configure miss: processor support of __atomic builtin atomic compare-and-swap on 128-bit values
+Configure miss: __atomic builtin atomic compare-and-swap on 128-bit values with -mcx16 flag
 Configure miss: if .proc/endp is needed
 Configure miss: if .align directive takes logarithmic value
-Configure miss: if gcc supports DEC inline assembly
-Configure miss: if gcc supports XLC inline assembly
+Configure miss: atomic assembly filename
 Configure miss: extra arguments to build a shared library
 Configure miss: gfortran warnings flags
 Configure miss: Fortran flag to compile .f files
@@ -155,10 +155,6 @@ Configure miss: cpuset_setid
 Configure miss: numaif.h usability
 Configure miss: numaif.h presence
 Configure miss: numaif.h
-Configure miss: PCIACCESS
-Configure miss: pciaccess.h usability
-Configure miss: pciaccess.h presence
-Configure miss: pciaccess.h
 Configure miss: CL/cl_ext.h usability
 Configure miss: CL/cl_ext.h presence
 Configure miss: CL/cl_ext.h
