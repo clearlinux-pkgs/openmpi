@@ -1,0 +1,11 @@
+--- openmpi-2.1.1/opal/runtime/opal_progress.c~	2017-05-10 15:41:36.000000000 +0000
++++ openmpi-2.1.1/opal/runtime/opal_progress.c	2017-09-20 16:34:02.000858090 +0000
+@@ -239,7 +239,7 @@
+          * the processor is oversubscribed - this will result in a best-case
+          * latency equivalent to the time-slice.
+          */
+-        sched_yield();
++        usleep(100);
+     }
+ #endif  /* defined(HAVE_SCHED_YIELD) */
+ }
