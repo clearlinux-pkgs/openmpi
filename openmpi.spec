@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 2.1.2
-Release  : 9
+Release  : 10
 URL      : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.2.tar.bz2
 Source0  : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.2.tar.bz2
 Summary  : A powerful implementation of MPI/SHMEM
