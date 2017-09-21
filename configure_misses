@@ -278,8 +278,12 @@ Configure miss: if want developer-level compiler pickyness
 Configure miss: if want developer-level debugging code
 Configure miss: if want to install project-internal header files
 Configure miss: if want developer-level timing support
-Configure miss: if want backward compatibility for PMI-1 and PMI-2
+Configure miss: uint128_t
 Configure miss: C bool type
+Configure miss: processor support of __atomic builtin atomic compare-and-swap on 128-bit values
+Configure miss: __atomic builtin atomic compare-and-swap on 128-bit values with -mcx16 flag
+Configure miss: if .proc/endp is needed
+Configure miss: if .align directive takes logarithmic value
 Configure miss: net/uio.h usability
 Configure miss: net/uio.h presence
 Configure miss: net/uio.h
@@ -386,12 +390,12 @@ Configure miss: pvfs2.h usability
 Configure miss: pvfs2.h presence
 Configure miss: pvfs2.h
 Configure miss: if MCA component fs:pvfs2 can compile
-Configure miss: lustre/liblustreapi.h usability
-Configure miss: lustre/liblustreapi.h presence
-Configure miss: lustre/liblustreapi.h
-Configure miss: lustre/liblustreapi.h usability
-Configure miss: lustre/liblustreapi.h presence
-Configure miss: lustre/liblustreapi.h
+Configure miss: lustre/lustreapi.h usability
+Configure miss: lustre/lustreapi.h presence
+Configure miss: lustre/lustreapi.h
+Configure miss: lustre/lustreapi.h usability
+Configure miss: lustre/lustreapi.h presence
+Configure miss: lustre/lustreapi.h
 Configure miss: required lustre data structures
 Configure miss: if MCA component fs:lustre can compile
 Configure miss: whether clock skew breaks make
@@ -457,7 +461,6 @@ Configure miss: if MCA component scoll:fca can compile
 Configure miss: if MCA component spml:ucx can compile
 Configure miss: if MCA component spml:ikrit can compile
 Configure miss: if MCA component sshmem:verbs can compile
-Configure miss: if MPI Extension cr can compile
 Configure miss: if MPI Extension affinity has mpif.h bindings
 Configure miss: if MPI Extension affinity has "use mpi" bindings
 Configure miss: if MPI Extension affinity has "use mpi_f08" bindings

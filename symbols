@@ -935,6 +935,7 @@ libmpi.so.20:mca_topo_base_graph_neighbors
 libmpi.so.20:mca_topo_base_graph_neighbors_count
 libmpi.so.20:mca_topo_base_graphdims_get
 libmpi.so.20:mca_topo_base_lazy_init
+libmpi.so.20:mca_topo_base_neighbor_count
 libmpi.so.20:mca_vprotocol_base_parasite
 libmpi.so.20:mca_vprotocol_base_request_parasite
 libmpi.so.20:mca_vprotocol_base_select
@@ -1104,8 +1105,6 @@ libmpi.so.20:ompi_comm_group
 libmpi.so.20:ompi_comm_idup
 libmpi.so.20:ompi_comm_idup_with_info
 libmpi.so.20:ompi_comm_init
-libmpi.so.20:ompi_comm_neighbors
-libmpi.so.20:ompi_comm_neighbors_count
 libmpi.so.20:ompi_comm_nextcid
 libmpi.so.20:ompi_comm_nextcid_nb
 libmpi.so.20:ompi_comm_null_copy_fn_f
