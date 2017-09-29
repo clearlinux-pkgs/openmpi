@@ -4,12 +4,12 @@
 #
 Name     : openmpi
 Version  : 2.1.2
-Release  : 10
+Release  : 11
 URL      : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.2.tar.bz2
 Source0  : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.2.tar.bz2
 Summary  : A powerful implementation of MPI/SHMEM
 Group    : Development/Tools
-License  : BSD-3-Clause
+License  : BSD-3-Clause BSD-3-Clause-Clear Intel
 Requires: openmpi-bin
 Requires: openmpi-lib
 Requires: openmpi-doc
@@ -99,7 +99,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1506004716
+export SOURCE_DATE_EPOCH=1506655243
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error   -Wl,-z,max-page-size=0x1000 -m64 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
 unset LDFLAGS
@@ -113,7 +113,8 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-march=native -O3" \
---with-wrapper-cxxflags-prefix="-march=native -O3"
+--with-wrapper-cxxflags-prefix="-march=native -O3" \
+--with-wrapper-fcflags-prefix="-march=native -O3"
 make V=1  %{?_smp_mflags}
 
 %check
@@ -124,7 +125,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1506004716
+export SOURCE_DATE_EPOCH=1506655243
 rm -rf %{buildroot}
 %make_install
 

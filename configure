@@ -2,3 +2,4 @@
 --enable-builtin-atomics
 --with-wrapper-cflags-prefix="-march=native -O3"
 --with-wrapper-cxxflags-prefix="-march=native -O3"
+--with-wrapper-fcflags-prefix="-march=native -O3"
