@@ -5,7 +5,7 @@
           * latency equivalent to the time-slice.
           */
 -        sched_yield();
-+        usleep(100);
++        usleep(50);
      }
  #endif  /* defined(HAVE_SCHED_YIELD) */
  }
