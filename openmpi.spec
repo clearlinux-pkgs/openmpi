@@ -4,18 +4,20 @@
 #
 Name     : openmpi
 Version  : 2.1.3
-Release  : 18
+Release  : 19
 URL      : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.3.tar.bz2
 Source0  : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.3.tar.bz2
 Summary  : A powerful implementation of MPI/SHMEM
 Group    : Development/Tools
-License  : BSD-3-Clause Intel
-Requires: openmpi-bin
-Requires: openmpi-lib
-Requires: openmpi-doc
-Requires: openmpi-data
+License  : BSD-3-Clause BSD-3-Clause-Clear Intel
+Requires: openmpi-bin = %{version}-%{release}
+Requires: openmpi-data = %{version}-%{release}
+Requires: openmpi-lib = %{version}-%{release}
+Requires: openmpi-license = %{version}-%{release}
+Requires: openmpi-man = %{version}-%{release}
 BuildRequires : db-dev
 BuildRequires : flex
+BuildRequires : gfortran
 BuildRequires : grep
 BuildRequires : hwloc-dev
 BuildRequires : libpciaccess-dev
@@ -25,6 +27,7 @@ BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(zlib)
 BuildRequires : sed
 BuildRequires : systemd-dev
+BuildRequires : valgrind
 Patch1: root.patch
 
 %description
@@ -45,7 +48,9 @@ Open MPI and OpenSHMEM jobs.
 %package bin
 Summary: bin components for the openmpi package.
 Group: Binaries
-Requires: openmpi-data
+Requires: openmpi-data = %{version}-%{release}
+Requires: openmpi-license = %{version}-%{release}
+Requires: openmpi-man = %{version}-%{release}
 
 %description bin
 bin components for the openmpi package.
@@ -62,30 +67,39 @@ data components for the openmpi package.
 %package dev
 Summary: dev components for the openmpi package.
 Group: Development
-Requires: openmpi-lib
-Requires: openmpi-bin
-Requires: openmpi-data
-Provides: openmpi-devel
+Requires: openmpi-lib = %{version}-%{release}
+Requires: openmpi-bin = %{version}-%{release}
+Requires: openmpi-data = %{version}-%{release}
+Provides: openmpi-devel = %{version}-%{release}
 
 %description dev
 dev components for the openmpi package.
 
 
-%package doc
-Summary: doc components for the openmpi package.
-Group: Documentation
-
-%description doc
-doc components for the openmpi package.
-
-
 %package lib
 Summary: lib components for the openmpi package.
 Group: Libraries
-Requires: openmpi-data
+Requires: openmpi-data = %{version}-%{release}
+Requires: openmpi-license = %{version}-%{release}
 
 %description lib
 lib components for the openmpi package.
+
+
+%package license
+Summary: license components for the openmpi package.
+Group: Default
+
+%description license
+license components for the openmpi package.
+
+
+%package man
+Summary: man components for the openmpi package.
+Group: Default
+
+%description man
+man components for the openmpi package.
 
 
 %prep
@@ -97,7 +111,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522117845
+export SOURCE_DATE_EPOCH=1542410883
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error   -Wl,-z,max-page-size=0x1000 -m64 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
 unset LDFLAGS
@@ -123,8 +137,14 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1522117845
+export SOURCE_DATE_EPOCH=1542410883
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
+cp LICENSE %{buildroot}/usr/share/package-licenses/openmpi/LICENSE
+cp contrib/dist/mofed/debian/copyright %{buildroot}/usr/share/package-licenses/openmpi/contrib_dist_mofed_debian_copyright
+cp opal/mca/event/libevent2022/libevent/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/opal_mca_event_libevent2022_libevent_LICENSE
+cp opal/mca/hwloc/hwloc1112/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/opal_mca_hwloc_hwloc1112_hwloc_COPYING
+cp opal/mca/pmix/pmix112/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/opal_mca_pmix_pmix112_pmix_LICENSE
 %make_install
 
 %files
@@ -292,12 +312,642 @@ rm -rf %{buildroot}
 /usr/lib64/pkgconfig/ompi-fort.pc
 /usr/lib64/pkgconfig/ompi.pc
 /usr/lib64/pkgconfig/orte.pc
-
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
-%doc /usr/share/man/man3/*
-%doc /usr/share/man/man7/*
+/usr/share/man/man3/MPI.3
+/usr/share/man/man3/MPIX_Query_cuda_support.3
+/usr/share/man/man3/MPI_Abort.3
+/usr/share/man/man3/MPI_Accumulate.3
+/usr/share/man/man3/MPI_Add_error_class.3
+/usr/share/man/man3/MPI_Add_error_code.3
+/usr/share/man/man3/MPI_Add_error_string.3
+/usr/share/man/man3/MPI_Address.3
+/usr/share/man/man3/MPI_Aint_add.3
+/usr/share/man/man3/MPI_Aint_diff.3
+/usr/share/man/man3/MPI_Allgather.3
+/usr/share/man/man3/MPI_Allgatherv.3
+/usr/share/man/man3/MPI_Alloc_mem.3
+/usr/share/man/man3/MPI_Allreduce.3
+/usr/share/man/man3/MPI_Alltoall.3
+/usr/share/man/man3/MPI_Alltoallv.3
+/usr/share/man/man3/MPI_Alltoallw.3
+/usr/share/man/man3/MPI_Attr_delete.3
+/usr/share/man/man3/MPI_Attr_get.3
+/usr/share/man/man3/MPI_Attr_put.3
+/usr/share/man/man3/MPI_Barrier.3
+/usr/share/man/man3/MPI_Bcast.3
+/usr/share/man/man3/MPI_Bsend.3
+/usr/share/man/man3/MPI_Bsend_init.3
+/usr/share/man/man3/MPI_Buffer_attach.3
+/usr/share/man/man3/MPI_Buffer_detach.3
+/usr/share/man/man3/MPI_Cancel.3
+/usr/share/man/man3/MPI_Cart_coords.3
+/usr/share/man/man3/MPI_Cart_create.3
+/usr/share/man/man3/MPI_Cart_get.3
+/usr/share/man/man3/MPI_Cart_map.3
+/usr/share/man/man3/MPI_Cart_rank.3
+/usr/share/man/man3/MPI_Cart_shift.3
+/usr/share/man/man3/MPI_Cart_sub.3
+/usr/share/man/man3/MPI_Cartdim_get.3
+/usr/share/man/man3/MPI_Close_port.3
+/usr/share/man/man3/MPI_Comm_accept.3
+/usr/share/man/man3/MPI_Comm_c2f.3
+/usr/share/man/man3/MPI_Comm_call_errhandler.3
+/usr/share/man/man3/MPI_Comm_compare.3
+/usr/share/man/man3/MPI_Comm_connect.3
+/usr/share/man/man3/MPI_Comm_create.3
+/usr/share/man/man3/MPI_Comm_create_errhandler.3
+/usr/share/man/man3/MPI_Comm_create_group.3
+/usr/share/man/man3/MPI_Comm_create_keyval.3
+/usr/share/man/man3/MPI_Comm_delete_attr.3
+/usr/share/man/man3/MPI_Comm_disconnect.3
+/usr/share/man/man3/MPI_Comm_dup.3
+/usr/share/man/man3/MPI_Comm_dup_with_info.3
+/usr/share/man/man3/MPI_Comm_f2c.3
+/usr/share/man/man3/MPI_Comm_free.3
+/usr/share/man/man3/MPI_Comm_free_keyval.3
+/usr/share/man/man3/MPI_Comm_get_attr.3
+/usr/share/man/man3/MPI_Comm_get_errhandler.3
+/usr/share/man/man3/MPI_Comm_get_info.3
+/usr/share/man/man3/MPI_Comm_get_name.3
+/usr/share/man/man3/MPI_Comm_get_parent.3
+/usr/share/man/man3/MPI_Comm_group.3
+/usr/share/man/man3/MPI_Comm_idup.3
+/usr/share/man/man3/MPI_Comm_join.3
+/usr/share/man/man3/MPI_Comm_rank.3
+/usr/share/man/man3/MPI_Comm_remote_group.3
+/usr/share/man/man3/MPI_Comm_remote_size.3
+/usr/share/man/man3/MPI_Comm_set_attr.3
+/usr/share/man/man3/MPI_Comm_set_errhandler.3
+/usr/share/man/man3/MPI_Comm_set_info.3
+/usr/share/man/man3/MPI_Comm_set_name.3
+/usr/share/man/man3/MPI_Comm_size.3
+/usr/share/man/man3/MPI_Comm_spawn.3
+/usr/share/man/man3/MPI_Comm_spawn_multiple.3
+/usr/share/man/man3/MPI_Comm_split.3
+/usr/share/man/man3/MPI_Comm_split_type.3
+/usr/share/man/man3/MPI_Comm_test_inter.3
+/usr/share/man/man3/MPI_Compare_and_swap.3
+/usr/share/man/man3/MPI_Dims_create.3
+/usr/share/man/man3/MPI_Dist_graph_create.3
+/usr/share/man/man3/MPI_Dist_graph_create_adjacent.3
+/usr/share/man/man3/MPI_Dist_graph_neighbors.3
+/usr/share/man/man3/MPI_Dist_graph_neighbors_count.3
+/usr/share/man/man3/MPI_Errhandler_create.3
+/usr/share/man/man3/MPI_Errhandler_free.3
+/usr/share/man/man3/MPI_Errhandler_get.3
+/usr/share/man/man3/MPI_Errhandler_set.3
+/usr/share/man/man3/MPI_Error_class.3
+/usr/share/man/man3/MPI_Error_string.3
+/usr/share/man/man3/MPI_Exscan.3
+/usr/share/man/man3/MPI_Fetch_and_op.3
+/usr/share/man/man3/MPI_File_c2f.3
+/usr/share/man/man3/MPI_File_call_errhandler.3
+/usr/share/man/man3/MPI_File_close.3
+/usr/share/man/man3/MPI_File_create_errhandler.3
+/usr/share/man/man3/MPI_File_delete.3
+/usr/share/man/man3/MPI_File_f2c.3
+/usr/share/man/man3/MPI_File_get_amode.3
+/usr/share/man/man3/MPI_File_get_atomicity.3
+/usr/share/man/man3/MPI_File_get_byte_offset.3
+/usr/share/man/man3/MPI_File_get_errhandler.3
+/usr/share/man/man3/MPI_File_get_group.3
+/usr/share/man/man3/MPI_File_get_info.3
+/usr/share/man/man3/MPI_File_get_position.3
+/usr/share/man/man3/MPI_File_get_position_shared.3
+/usr/share/man/man3/MPI_File_get_size.3
+/usr/share/man/man3/MPI_File_get_type_extent.3
+/usr/share/man/man3/MPI_File_get_view.3
+/usr/share/man/man3/MPI_File_iread.3
+/usr/share/man/man3/MPI_File_iread_all.3
+/usr/share/man/man3/MPI_File_iread_at.3
+/usr/share/man/man3/MPI_File_iread_at_all.3
+/usr/share/man/man3/MPI_File_iread_shared.3
+/usr/share/man/man3/MPI_File_iwrite.3
+/usr/share/man/man3/MPI_File_iwrite_all.3
+/usr/share/man/man3/MPI_File_iwrite_at.3
+/usr/share/man/man3/MPI_File_iwrite_at_all.3
+/usr/share/man/man3/MPI_File_iwrite_shared.3
+/usr/share/man/man3/MPI_File_open.3
+/usr/share/man/man3/MPI_File_preallocate.3
+/usr/share/man/man3/MPI_File_read.3
+/usr/share/man/man3/MPI_File_read_all.3
+/usr/share/man/man3/MPI_File_read_all_begin.3
+/usr/share/man/man3/MPI_File_read_all_end.3
+/usr/share/man/man3/MPI_File_read_at.3
+/usr/share/man/man3/MPI_File_read_at_all.3
+/usr/share/man/man3/MPI_File_read_at_all_begin.3
+/usr/share/man/man3/MPI_File_read_at_all_end.3
+/usr/share/man/man3/MPI_File_read_ordered.3
+/usr/share/man/man3/MPI_File_read_ordered_begin.3
+/usr/share/man/man3/MPI_File_read_ordered_end.3
+/usr/share/man/man3/MPI_File_read_shared.3
+/usr/share/man/man3/MPI_File_seek.3
+/usr/share/man/man3/MPI_File_seek_shared.3
+/usr/share/man/man3/MPI_File_set_atomicity.3
+/usr/share/man/man3/MPI_File_set_errhandler.3
+/usr/share/man/man3/MPI_File_set_info.3
+/usr/share/man/man3/MPI_File_set_size.3
+/usr/share/man/man3/MPI_File_set_view.3
+/usr/share/man/man3/MPI_File_sync.3
+/usr/share/man/man3/MPI_File_write.3
+/usr/share/man/man3/MPI_File_write_all.3
+/usr/share/man/man3/MPI_File_write_all_begin.3
+/usr/share/man/man3/MPI_File_write_all_end.3
+/usr/share/man/man3/MPI_File_write_at.3
+/usr/share/man/man3/MPI_File_write_at_all.3
+/usr/share/man/man3/MPI_File_write_at_all_begin.3
+/usr/share/man/man3/MPI_File_write_at_all_end.3
+/usr/share/man/man3/MPI_File_write_ordered.3
+/usr/share/man/man3/MPI_File_write_ordered_begin.3
+/usr/share/man/man3/MPI_File_write_ordered_end.3
+/usr/share/man/man3/MPI_File_write_shared.3
+/usr/share/man/man3/MPI_Finalize.3
+/usr/share/man/man3/MPI_Finalized.3
+/usr/share/man/man3/MPI_Free_mem.3
+/usr/share/man/man3/MPI_Gather.3
+/usr/share/man/man3/MPI_Gatherv.3
+/usr/share/man/man3/MPI_Get.3
+/usr/share/man/man3/MPI_Get_accumulate.3
+/usr/share/man/man3/MPI_Get_address.3
+/usr/share/man/man3/MPI_Get_count.3
+/usr/share/man/man3/MPI_Get_elements.3
+/usr/share/man/man3/MPI_Get_elements_x.3
+/usr/share/man/man3/MPI_Get_library_version.3
+/usr/share/man/man3/MPI_Get_processor_name.3
+/usr/share/man/man3/MPI_Get_version.3
+/usr/share/man/man3/MPI_Graph_create.3
+/usr/share/man/man3/MPI_Graph_get.3
+/usr/share/man/man3/MPI_Graph_map.3
+/usr/share/man/man3/MPI_Graph_neighbors.3
+/usr/share/man/man3/MPI_Graph_neighbors_count.3
+/usr/share/man/man3/MPI_Graphdims_get.3
+/usr/share/man/man3/MPI_Grequest_complete.3
+/usr/share/man/man3/MPI_Grequest_start.3
+/usr/share/man/man3/MPI_Group_c2f.3
+/usr/share/man/man3/MPI_Group_compare.3
+/usr/share/man/man3/MPI_Group_difference.3
+/usr/share/man/man3/MPI_Group_excl.3
+/usr/share/man/man3/MPI_Group_f2c.3
+/usr/share/man/man3/MPI_Group_free.3
+/usr/share/man/man3/MPI_Group_incl.3
+/usr/share/man/man3/MPI_Group_intersection.3
+/usr/share/man/man3/MPI_Group_range_excl.3
+/usr/share/man/man3/MPI_Group_range_incl.3
+/usr/share/man/man3/MPI_Group_rank.3
+/usr/share/man/man3/MPI_Group_size.3
+/usr/share/man/man3/MPI_Group_translate_ranks.3
+/usr/share/man/man3/MPI_Group_union.3
+/usr/share/man/man3/MPI_Iallgather.3
+/usr/share/man/man3/MPI_Iallgatherv.3
+/usr/share/man/man3/MPI_Iallreduce.3
+/usr/share/man/man3/MPI_Ialltoall.3
+/usr/share/man/man3/MPI_Ialltoallv.3
+/usr/share/man/man3/MPI_Ialltoallw.3
+/usr/share/man/man3/MPI_Ibarrier.3
+/usr/share/man/man3/MPI_Ibcast.3
+/usr/share/man/man3/MPI_Ibsend.3
+/usr/share/man/man3/MPI_Iexscan.3
+/usr/share/man/man3/MPI_Igather.3
+/usr/share/man/man3/MPI_Igatherv.3
+/usr/share/man/man3/MPI_Improbe.3
+/usr/share/man/man3/MPI_Imrecv.3
+/usr/share/man/man3/MPI_Ineighbor_allgather.3
+/usr/share/man/man3/MPI_Ineighbor_allgatherv.3
+/usr/share/man/man3/MPI_Ineighbor_alltoall.3
+/usr/share/man/man3/MPI_Ineighbor_alltoallv.3
+/usr/share/man/man3/MPI_Ineighbor_alltoallw.3
+/usr/share/man/man3/MPI_Info_c2f.3
+/usr/share/man/man3/MPI_Info_create.3
+/usr/share/man/man3/MPI_Info_delete.3
+/usr/share/man/man3/MPI_Info_dup.3
+/usr/share/man/man3/MPI_Info_env.3
+/usr/share/man/man3/MPI_Info_f2c.3
+/usr/share/man/man3/MPI_Info_free.3
+/usr/share/man/man3/MPI_Info_get.3
+/usr/share/man/man3/MPI_Info_get_nkeys.3
+/usr/share/man/man3/MPI_Info_get_nthkey.3
+/usr/share/man/man3/MPI_Info_get_valuelen.3
+/usr/share/man/man3/MPI_Info_set.3
+/usr/share/man/man3/MPI_Init.3
+/usr/share/man/man3/MPI_Init_thread.3
+/usr/share/man/man3/MPI_Initialized.3
+/usr/share/man/man3/MPI_Intercomm_create.3
+/usr/share/man/man3/MPI_Intercomm_merge.3
+/usr/share/man/man3/MPI_Iprobe.3
+/usr/share/man/man3/MPI_Irecv.3
+/usr/share/man/man3/MPI_Ireduce.3
+/usr/share/man/man3/MPI_Ireduce_scatter.3
+/usr/share/man/man3/MPI_Ireduce_scatter_block.3
+/usr/share/man/man3/MPI_Irsend.3
+/usr/share/man/man3/MPI_Is_thread_main.3
+/usr/share/man/man3/MPI_Iscan.3
+/usr/share/man/man3/MPI_Iscatter.3
+/usr/share/man/man3/MPI_Iscatterv.3
+/usr/share/man/man3/MPI_Isend.3
+/usr/share/man/man3/MPI_Issend.3
+/usr/share/man/man3/MPI_Keyval_create.3
+/usr/share/man/man3/MPI_Keyval_free.3
+/usr/share/man/man3/MPI_Lookup_name.3
+/usr/share/man/man3/MPI_Message_c2f.3
+/usr/share/man/man3/MPI_Message_f2c.3
+/usr/share/man/man3/MPI_Mprobe.3
+/usr/share/man/man3/MPI_Mrecv.3
+/usr/share/man/man3/MPI_Neighbor_allgather.3
+/usr/share/man/man3/MPI_Neighbor_allgatherv.3
+/usr/share/man/man3/MPI_Neighbor_alltoall.3
+/usr/share/man/man3/MPI_Neighbor_alltoallv.3
+/usr/share/man/man3/MPI_Neighbor_alltoallw.3
+/usr/share/man/man3/MPI_Op_c2f.3
+/usr/share/man/man3/MPI_Op_commutative.3
+/usr/share/man/man3/MPI_Op_create.3
+/usr/share/man/man3/MPI_Op_f2c.3
+/usr/share/man/man3/MPI_Op_free.3
+/usr/share/man/man3/MPI_Open_port.3
+/usr/share/man/man3/MPI_Pack.3
+/usr/share/man/man3/MPI_Pack_external.3
+/usr/share/man/man3/MPI_Pack_external_size.3
+/usr/share/man/man3/MPI_Pack_size.3
+/usr/share/man/man3/MPI_Pcontrol.3
+/usr/share/man/man3/MPI_Probe.3
+/usr/share/man/man3/MPI_Publish_name.3
+/usr/share/man/man3/MPI_Put.3
+/usr/share/man/man3/MPI_Query_thread.3
+/usr/share/man/man3/MPI_Raccumulate.3
+/usr/share/man/man3/MPI_Recv.3
+/usr/share/man/man3/MPI_Recv_init.3
+/usr/share/man/man3/MPI_Reduce.3
+/usr/share/man/man3/MPI_Reduce_local.3
+/usr/share/man/man3/MPI_Reduce_scatter.3
+/usr/share/man/man3/MPI_Reduce_scatter_block.3
+/usr/share/man/man3/MPI_Register_datarep.3
+/usr/share/man/man3/MPI_Request_c2f.3
+/usr/share/man/man3/MPI_Request_f2c.3
+/usr/share/man/man3/MPI_Request_free.3
+/usr/share/man/man3/MPI_Request_get_status.3
+/usr/share/man/man3/MPI_Rget.3
+/usr/share/man/man3/MPI_Rget_accumulate.3
+/usr/share/man/man3/MPI_Rput.3
+/usr/share/man/man3/MPI_Rsend.3
+/usr/share/man/man3/MPI_Rsend_init.3
+/usr/share/man/man3/MPI_Scan.3
+/usr/share/man/man3/MPI_Scatter.3
+/usr/share/man/man3/MPI_Scatterv.3
+/usr/share/man/man3/MPI_Send.3
+/usr/share/man/man3/MPI_Send_init.3
+/usr/share/man/man3/MPI_Sendrecv.3
+/usr/share/man/man3/MPI_Sendrecv_replace.3
+/usr/share/man/man3/MPI_Sizeof.3
+/usr/share/man/man3/MPI_Ssend.3
+/usr/share/man/man3/MPI_Ssend_init.3
+/usr/share/man/man3/MPI_Start.3
+/usr/share/man/man3/MPI_Startall.3
+/usr/share/man/man3/MPI_Status_c2f.3
+/usr/share/man/man3/MPI_Status_f2c.3
+/usr/share/man/man3/MPI_Status_set_cancelled.3
+/usr/share/man/man3/MPI_Status_set_elements.3
+/usr/share/man/man3/MPI_Status_set_elements_x.3
+/usr/share/man/man3/MPI_T_category_changed.3
+/usr/share/man/man3/MPI_T_category_get_categories.3
+/usr/share/man/man3/MPI_T_category_get_cvars.3
+/usr/share/man/man3/MPI_T_category_get_info.3
+/usr/share/man/man3/MPI_T_category_get_num.3
+/usr/share/man/man3/MPI_T_category_get_pvars.3
+/usr/share/man/man3/MPI_T_cvar_get_info.3
+/usr/share/man/man3/MPI_T_cvar_get_num.3
+/usr/share/man/man3/MPI_T_cvar_handle_alloc.3
+/usr/share/man/man3/MPI_T_cvar_handle_free.3
+/usr/share/man/man3/MPI_T_cvar_read.3
+/usr/share/man/man3/MPI_T_cvar_write.3
+/usr/share/man/man3/MPI_T_enum_get_info.3
+/usr/share/man/man3/MPI_T_enum_get_item.3
+/usr/share/man/man3/MPI_T_finalize.3
+/usr/share/man/man3/MPI_T_init_thread.3
+/usr/share/man/man3/MPI_T_pvar_get_info.3
+/usr/share/man/man3/MPI_T_pvar_get_num.3
+/usr/share/man/man3/MPI_T_pvar_handle_alloc.3
+/usr/share/man/man3/MPI_T_pvar_handle_free.3
+/usr/share/man/man3/MPI_T_pvar_read.3
+/usr/share/man/man3/MPI_T_pvar_readreset.3
+/usr/share/man/man3/MPI_T_pvar_reset.3
+/usr/share/man/man3/MPI_T_pvar_session_create.3
+/usr/share/man/man3/MPI_T_pvar_session_free.3
+/usr/share/man/man3/MPI_T_pvar_start.3
+/usr/share/man/man3/MPI_T_pvar_stop.3
+/usr/share/man/man3/MPI_T_pvar_write.3
+/usr/share/man/man3/MPI_Test.3
+/usr/share/man/man3/MPI_Test_cancelled.3
+/usr/share/man/man3/MPI_Testall.3
+/usr/share/man/man3/MPI_Testany.3
+/usr/share/man/man3/MPI_Testsome.3
+/usr/share/man/man3/MPI_Topo_test.3
+/usr/share/man/man3/MPI_Type_c2f.3
+/usr/share/man/man3/MPI_Type_commit.3
+/usr/share/man/man3/MPI_Type_contiguous.3
+/usr/share/man/man3/MPI_Type_create_darray.3
+/usr/share/man/man3/MPI_Type_create_f90_complex.3
+/usr/share/man/man3/MPI_Type_create_f90_integer.3
+/usr/share/man/man3/MPI_Type_create_f90_real.3
+/usr/share/man/man3/MPI_Type_create_hindexed.3
+/usr/share/man/man3/MPI_Type_create_hindexed_block.3
+/usr/share/man/man3/MPI_Type_create_hvector.3
+/usr/share/man/man3/MPI_Type_create_indexed_block.3
+/usr/share/man/man3/MPI_Type_create_keyval.3
+/usr/share/man/man3/MPI_Type_create_resized.3
+/usr/share/man/man3/MPI_Type_create_struct.3
+/usr/share/man/man3/MPI_Type_create_subarray.3
+/usr/share/man/man3/MPI_Type_delete_attr.3
+/usr/share/man/man3/MPI_Type_dup.3
+/usr/share/man/man3/MPI_Type_extent.3
+/usr/share/man/man3/MPI_Type_f2c.3
+/usr/share/man/man3/MPI_Type_free.3
+/usr/share/man/man3/MPI_Type_free_keyval.3
+/usr/share/man/man3/MPI_Type_get_attr.3
+/usr/share/man/man3/MPI_Type_get_contents.3
+/usr/share/man/man3/MPI_Type_get_envelope.3
+/usr/share/man/man3/MPI_Type_get_extent.3
+/usr/share/man/man3/MPI_Type_get_extent_x.3
+/usr/share/man/man3/MPI_Type_get_name.3
+/usr/share/man/man3/MPI_Type_get_true_extent.3
+/usr/share/man/man3/MPI_Type_get_true_extent_x.3
+/usr/share/man/man3/MPI_Type_hindexed.3
+/usr/share/man/man3/MPI_Type_hvector.3
+/usr/share/man/man3/MPI_Type_indexed.3
+/usr/share/man/man3/MPI_Type_lb.3
+/usr/share/man/man3/MPI_Type_match_size.3
+/usr/share/man/man3/MPI_Type_set_attr.3
+/usr/share/man/man3/MPI_Type_set_name.3
+/usr/share/man/man3/MPI_Type_size.3
+/usr/share/man/man3/MPI_Type_size_x.3
+/usr/share/man/man3/MPI_Type_struct.3
+/usr/share/man/man3/MPI_Type_ub.3
+/usr/share/man/man3/MPI_Type_vector.3
+/usr/share/man/man3/MPI_Unpack.3
+/usr/share/man/man3/MPI_Unpack_external.3
+/usr/share/man/man3/MPI_Unpublish_name.3
+/usr/share/man/man3/MPI_Wait.3
+/usr/share/man/man3/MPI_Waitall.3
+/usr/share/man/man3/MPI_Waitany.3
+/usr/share/man/man3/MPI_Waitsome.3
+/usr/share/man/man3/MPI_Win_allocate.3
+/usr/share/man/man3/MPI_Win_allocate_shared.3
+/usr/share/man/man3/MPI_Win_attach.3
+/usr/share/man/man3/MPI_Win_c2f.3
+/usr/share/man/man3/MPI_Win_call_errhandler.3
+/usr/share/man/man3/MPI_Win_complete.3
+/usr/share/man/man3/MPI_Win_create.3
+/usr/share/man/man3/MPI_Win_create_dynamic.3
+/usr/share/man/man3/MPI_Win_create_errhandler.3
+/usr/share/man/man3/MPI_Win_create_keyval.3
+/usr/share/man/man3/MPI_Win_delete_attr.3
+/usr/share/man/man3/MPI_Win_detach.3
+/usr/share/man/man3/MPI_Win_f2c.3
+/usr/share/man/man3/MPI_Win_fence.3
+/usr/share/man/man3/MPI_Win_flush.3
+/usr/share/man/man3/MPI_Win_flush_all.3
+/usr/share/man/man3/MPI_Win_flush_local.3
+/usr/share/man/man3/MPI_Win_flush_local_all.3
+/usr/share/man/man3/MPI_Win_free.3
+/usr/share/man/man3/MPI_Win_free_keyval.3
+/usr/share/man/man3/MPI_Win_get_attr.3
+/usr/share/man/man3/MPI_Win_get_errhandler.3
+/usr/share/man/man3/MPI_Win_get_group.3
+/usr/share/man/man3/MPI_Win_get_info.3
+/usr/share/man/man3/MPI_Win_get_name.3
+/usr/share/man/man3/MPI_Win_lock.3
+/usr/share/man/man3/MPI_Win_lock_all.3
+/usr/share/man/man3/MPI_Win_post.3
+/usr/share/man/man3/MPI_Win_set_attr.3
+/usr/share/man/man3/MPI_Win_set_errhandler.3
+/usr/share/man/man3/MPI_Win_set_info.3
+/usr/share/man/man3/MPI_Win_set_name.3
+/usr/share/man/man3/MPI_Win_shared_query.3
+/usr/share/man/man3/MPI_Win_start.3
+/usr/share/man/man3/MPI_Win_sync.3
+/usr/share/man/man3/MPI_Win_test.3
+/usr/share/man/man3/MPI_Win_unlock.3
+/usr/share/man/man3/MPI_Win_unlock_all.3
+/usr/share/man/man3/MPI_Win_wait.3
+/usr/share/man/man3/MPI_Wtick.3
+/usr/share/man/man3/MPI_Wtime.3
+/usr/share/man/man3/OMPI_Affinity_str.3
+/usr/share/man/man3/OpenMPI.3
+/usr/share/man/man3/OpenSHMEM.3
+/usr/share/man/man3/_my_pe.3
+/usr/share/man/man3/_num_pes.3
+/usr/share/man/man3/intro_shmem.3
+/usr/share/man/man3/shfree.3
+/usr/share/man/man3/shmalloc.3
+/usr/share/man/man3/shmem_addr_accessible.3
+/usr/share/man/man3/shmem_align.3
+/usr/share/man/man3/shmem_alltoall32.3
+/usr/share/man/man3/shmem_alltoall64.3
+/usr/share/man/man3/shmem_alltoalls32.3
+/usr/share/man/man3/shmem_alltoalls64.3
+/usr/share/man/man3/shmem_barrier.3
+/usr/share/man/man3/shmem_barrier_all.3
+/usr/share/man/man3/shmem_broadcast32.3
+/usr/share/man/man3/shmem_broadcast64.3
+/usr/share/man/man3/shmem_char_g.3
+/usr/share/man/man3/shmem_char_get.3
+/usr/share/man/man3/shmem_char_get_nbi.3
+/usr/share/man/man3/shmem_char_p.3
+/usr/share/man/man3/shmem_char_put.3
+/usr/share/man/man3/shmem_char_put_nbi.3
+/usr/share/man/man3/shmem_clear_cache_inv.3
+/usr/share/man/man3/shmem_clear_cache_line_inv.3
+/usr/share/man/man3/shmem_clear_lock.3
+/usr/share/man/man3/shmem_collect32.3
+/usr/share/man/man3/shmem_collect64.3
+/usr/share/man/man3/shmem_complexd_prod_to_all.3
+/usr/share/man/man3/shmem_complexd_sum_to_all.3
+/usr/share/man/man3/shmem_complexf_prod_to_all.3
+/usr/share/man/man3/shmem_complexf_sum_to_all.3
+/usr/share/man/man3/shmem_double_fetch.3
+/usr/share/man/man3/shmem_double_g.3
+/usr/share/man/man3/shmem_double_get.3
+/usr/share/man/man3/shmem_double_get_nbi.3
+/usr/share/man/man3/shmem_double_iget.3
+/usr/share/man/man3/shmem_double_iput.3
+/usr/share/man/man3/shmem_double_max_to_all.3
+/usr/share/man/man3/shmem_double_min_to_all.3
+/usr/share/man/man3/shmem_double_p.3
+/usr/share/man/man3/shmem_double_prod_to_all.3
+/usr/share/man/man3/shmem_double_put.3
+/usr/share/man/man3/shmem_double_put_nbi.3
+/usr/share/man/man3/shmem_double_set.3
+/usr/share/man/man3/shmem_double_sum_to_all.3
+/usr/share/man/man3/shmem_double_swap.3
+/usr/share/man/man3/shmem_fcollect32.3
+/usr/share/man/man3/shmem_fcollect64.3
+/usr/share/man/man3/shmem_fence.3
+/usr/share/man/man3/shmem_finalize.3
+/usr/share/man/man3/shmem_float_fetch.3
+/usr/share/man/man3/shmem_float_g.3
+/usr/share/man/man3/shmem_float_get.3
+/usr/share/man/man3/shmem_float_get_nbi.3
+/usr/share/man/man3/shmem_float_iget.3
+/usr/share/man/man3/shmem_float_iput.3
+/usr/share/man/man3/shmem_float_max_to_all.3
+/usr/share/man/man3/shmem_float_min_to_all.3
+/usr/share/man/man3/shmem_float_p.3
+/usr/share/man/man3/shmem_float_prod_to_all.3
+/usr/share/man/man3/shmem_float_put.3
+/usr/share/man/man3/shmem_float_put_nbi.3
+/usr/share/man/man3/shmem_float_set.3
+/usr/share/man/man3/shmem_float_sum_to_all.3
+/usr/share/man/man3/shmem_float_swap.3
+/usr/share/man/man3/shmem_free.3
+/usr/share/man/man3/shmem_get128.3
+/usr/share/man/man3/shmem_get128_nbi.3
+/usr/share/man/man3/shmem_get16_nbi.3
+/usr/share/man/man3/shmem_get32.3
+/usr/share/man/man3/shmem_get32_nbi.3
+/usr/share/man/man3/shmem_get64.3
+/usr/share/man/man3/shmem_get64_nbi.3
+/usr/share/man/man3/shmem_get8_nbi.3
+/usr/share/man/man3/shmem_getmem.3
+/usr/share/man/man3/shmem_getmem_nbi.3
+/usr/share/man/man3/shmem_global_exit.3
+/usr/share/man/man3/shmem_iget128.3
+/usr/share/man/man3/shmem_iget32.3
+/usr/share/man/man3/shmem_iget64.3
+/usr/share/man/man3/shmem_info_get_name.3
+/usr/share/man/man3/shmem_info_get_version.3
+/usr/share/man/man3/shmem_init.3
+/usr/share/man/man3/shmem_int_add.3
+/usr/share/man/man3/shmem_int_and_to_all.3
+/usr/share/man/man3/shmem_int_cswap.3
+/usr/share/man/man3/shmem_int_fadd.3
+/usr/share/man/man3/shmem_int_fetch.3
+/usr/share/man/man3/shmem_int_finc.3
+/usr/share/man/man3/shmem_int_g.3
+/usr/share/man/man3/shmem_int_get.3
+/usr/share/man/man3/shmem_int_get_nbi.3
+/usr/share/man/man3/shmem_int_iget.3
+/usr/share/man/man3/shmem_int_inc.3
+/usr/share/man/man3/shmem_int_iput.3
+/usr/share/man/man3/shmem_int_max_to_all.3
+/usr/share/man/man3/shmem_int_min_to_all.3
+/usr/share/man/man3/shmem_int_or_to_all.3
+/usr/share/man/man3/shmem_int_p.3
+/usr/share/man/man3/shmem_int_prod_to_all.3
+/usr/share/man/man3/shmem_int_put.3
+/usr/share/man/man3/shmem_int_put_nbi.3
+/usr/share/man/man3/shmem_int_set.3
+/usr/share/man/man3/shmem_int_sum_to_all.3
+/usr/share/man/man3/shmem_int_swap.3
+/usr/share/man/man3/shmem_int_wait.3
+/usr/share/man/man3/shmem_int_wait_until.3
+/usr/share/man/man3/shmem_int_xor_to_all.3
+/usr/share/man/man3/shmem_iput128.3
+/usr/share/man/man3/shmem_iput32.3
+/usr/share/man/man3/shmem_iput64.3
+/usr/share/man/man3/shmem_long_add.3
+/usr/share/man/man3/shmem_long_and_to_all.3
+/usr/share/man/man3/shmem_long_cswap.3
+/usr/share/man/man3/shmem_long_fadd.3
+/usr/share/man/man3/shmem_long_fetch.3
+/usr/share/man/man3/shmem_long_finc.3
+/usr/share/man/man3/shmem_long_g.3
+/usr/share/man/man3/shmem_long_get.3
+/usr/share/man/man3/shmem_long_get_nbi.3
+/usr/share/man/man3/shmem_long_iget.3
+/usr/share/man/man3/shmem_long_inc.3
+/usr/share/man/man3/shmem_long_iput.3
+/usr/share/man/man3/shmem_long_max_to_all.3
+/usr/share/man/man3/shmem_long_min_to_all.3
+/usr/share/man/man3/shmem_long_or_to_all.3
+/usr/share/man/man3/shmem_long_p.3
+/usr/share/man/man3/shmem_long_prod_to_all.3
+/usr/share/man/man3/shmem_long_put.3
+/usr/share/man/man3/shmem_long_put_nbi.3
+/usr/share/man/man3/shmem_long_set.3
+/usr/share/man/man3/shmem_long_sum_to_all.3
+/usr/share/man/man3/shmem_long_swap.3
+/usr/share/man/man3/shmem_long_wait.3
+/usr/share/man/man3/shmem_long_wait_until.3
+/usr/share/man/man3/shmem_long_xor_to_all.3
+/usr/share/man/man3/shmem_longdouble_g.3
+/usr/share/man/man3/shmem_longdouble_get.3
+/usr/share/man/man3/shmem_longdouble_get_nbi.3
+/usr/share/man/man3/shmem_longdouble_iget.3
+/usr/share/man/man3/shmem_longdouble_iput.3
+/usr/share/man/man3/shmem_longdouble_max_to_all.3
+/usr/share/man/man3/shmem_longdouble_min_to_all.3
+/usr/share/man/man3/shmem_longdouble_p.3
+/usr/share/man/man3/shmem_longdouble_prod_to_all.3
+/usr/share/man/man3/shmem_longdouble_put.3
+/usr/share/man/man3/shmem_longdouble_put_nbi.3
+/usr/share/man/man3/shmem_longlong_add.3
+/usr/share/man/man3/shmem_longlong_and_to_all.3
+/usr/share/man/man3/shmem_longlong_cswap.3
+/usr/share/man/man3/shmem_longlong_fadd.3
+/usr/share/man/man3/shmem_longlong_fetch.3
+/usr/share/man/man3/shmem_longlong_finc.3
+/usr/share/man/man3/shmem_longlong_g.3
+/usr/share/man/man3/shmem_longlong_get.3
+/usr/share/man/man3/shmem_longlong_get_nbi.3
+/usr/share/man/man3/shmem_longlong_iget.3
+/usr/share/man/man3/shmem_longlong_inc.3
+/usr/share/man/man3/shmem_longlong_iput.3
+/usr/share/man/man3/shmem_longlong_max_to_all.3
+/usr/share/man/man3/shmem_longlong_min_to_all.3
+/usr/share/man/man3/shmem_longlong_or_to_all.3
+/usr/share/man/man3/shmem_longlong_p.3
+/usr/share/man/man3/shmem_longlong_prod_to_all.3
+/usr/share/man/man3/shmem_longlong_put.3
+/usr/share/man/man3/shmem_longlong_put_nbi.3
+/usr/share/man/man3/shmem_longlong_set.3
+/usr/share/man/man3/shmem_longlong_sum_to_all.3
+/usr/share/man/man3/shmem_longlong_swap.3
+/usr/share/man/man3/shmem_longlong_wait.3
+/usr/share/man/man3/shmem_longlong_wait_until.3
+/usr/share/man/man3/shmem_longlong_xor_to_all.3
+/usr/share/man/man3/shmem_malloc.3
+/usr/share/man/man3/shmem_my_pe.3
+/usr/share/man/man3/shmem_n_pes.3
+/usr/share/man/man3/shmem_pe_accessible.3
+/usr/share/man/man3/shmem_ptr.3
+/usr/share/man/man3/shmem_put128.3
+/usr/share/man/man3/shmem_put128_nbi.3
+/usr/share/man/man3/shmem_put16_nbi.3
+/usr/share/man/man3/shmem_put32.3
+/usr/share/man/man3/shmem_put32_nbi.3
+/usr/share/man/man3/shmem_put64.3
+/usr/share/man/man3/shmem_put64_nbi.3
+/usr/share/man/man3/shmem_put8_nbi.3
+/usr/share/man/man3/shmem_putmem.3
+/usr/share/man/man3/shmem_putmem_nbi.3
+/usr/share/man/man3/shmem_quiet.3
+/usr/share/man/man3/shmem_realloc.3
+/usr/share/man/man3/shmem_set_cache_inv.3
+/usr/share/man/man3/shmem_set_cache_line_inv.3
+/usr/share/man/man3/shmem_set_lock.3
+/usr/share/man/man3/shmem_short_and_to_all.3
+/usr/share/man/man3/shmem_short_g.3
+/usr/share/man/man3/shmem_short_get.3
+/usr/share/man/man3/shmem_short_get_nbi.3
+/usr/share/man/man3/shmem_short_iget.3
+/usr/share/man/man3/shmem_short_iput.3
+/usr/share/man/man3/shmem_short_max_to_all.3
+/usr/share/man/man3/shmem_short_min_to_all.3
+/usr/share/man/man3/shmem_short_or_to_all.3
+/usr/share/man/man3/shmem_short_p.3
+/usr/share/man/man3/shmem_short_prod_to_all.3
+/usr/share/man/man3/shmem_short_put.3
+/usr/share/man/man3/shmem_short_put_nbi.3
+/usr/share/man/man3/shmem_short_sum_to_all.3
+/usr/share/man/man3/shmem_short_wait.3
+/usr/share/man/man3/shmem_short_wait_until.3
+/usr/share/man/man3/shmem_short_xor_to_all.3
+/usr/share/man/man3/shmem_swap.3
+/usr/share/man/man3/shmem_test_lock.3
+/usr/share/man/man3/shmem_udcflush.3
+/usr/share/man/man3/shmem_udcflush_line.3
+/usr/share/man/man3/shmem_wait.3
+/usr/share/man/man3/shmem_wait_until.3
+/usr/share/man/man3/shmemalign.3
+/usr/share/man/man3/shrealloc.3
+/usr/share/man/man3/start_pes.3
 
 %files lib
 %defattr(-,root,root,-)
@@ -423,3 +1073,49 @@ rm -rf %{buildroot}
 /usr/lib64/openmpi/mca_state_tool.so
 /usr/lib64/openmpi/mca_topo_basic.so
 /usr/lib64/openmpi/mca_vprotocol_pessimist.so
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/openmpi/LICENSE
+/usr/share/package-licenses/openmpi/contrib_dist_mofed_debian_copyright
+/usr/share/package-licenses/openmpi/opal_mca_event_libevent2022_libevent_LICENSE
+/usr/share/package-licenses/openmpi/opal_mca_hwloc_hwloc1112_hwloc_COPYING
+/usr/share/package-licenses/openmpi/opal_mca_pmix_pmix112_pmix_LICENSE
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/mpiCC.1
+/usr/share/man/man1/mpic++.1
+/usr/share/man/man1/mpicc.1
+/usr/share/man/man1/mpicxx.1
+/usr/share/man/man1/mpiexec.1
+/usr/share/man/man1/mpif77.1
+/usr/share/man/man1/mpif90.1
+/usr/share/man/man1/mpifort.1
+/usr/share/man/man1/mpirun.1
+/usr/share/man/man1/ompi-clean.1
+/usr/share/man/man1/ompi-dvm.1
+/usr/share/man/man1/ompi-ps.1
+/usr/share/man/man1/ompi-server.1
+/usr/share/man/man1/ompi-submit.1
+/usr/share/man/man1/ompi-top.1
+/usr/share/man/man1/ompi_info.1
+/usr/share/man/man1/opal_wrapper.1
+/usr/share/man/man1/orte-clean.1
+/usr/share/man/man1/orte-dvm.1
+/usr/share/man/man1/orte-info.1
+/usr/share/man/man1/orte-ps.1
+/usr/share/man/man1/orte-server.1
+/usr/share/man/man1/orte-submit.1
+/usr/share/man/man1/orte-top.1
+/usr/share/man/man1/orted.1
+/usr/share/man/man1/orterun.1
+/usr/share/man/man1/oshcc.1
+/usr/share/man/man1/oshfort.1
+/usr/share/man/man1/oshmem_info.1
+/usr/share/man/man1/oshrun.1
+/usr/share/man/man1/shmemcc.1
+/usr/share/man/man1/shmemfort.1
+/usr/share/man/man1/shmemrun.1
+/usr/share/man/man7/orte_filem.7
+/usr/share/man/man7/orte_hosts.7
