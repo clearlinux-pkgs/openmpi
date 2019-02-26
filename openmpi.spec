@@ -4,10 +4,10 @@
 #
 Name     : openmpi
 Version  : 2.1.3
-Release  : 20
+Release  : 21
 URL      : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.3.tar.bz2
 Source0  : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.3.tar.bz2
-Summary  : A powerful implementation of MPI/SHMEM
+Summary  : High performance message passing library (MPI)
 Group    : Development/Tools
 License  : BSD-3-Clause BSD-3-Clause-Clear Intel
 Requires: openmpi-bin = %{version}-%{release}
@@ -15,7 +15,6 @@ Requires: openmpi-data = %{version}-%{release}
 Requires: openmpi-lib = %{version}-%{release}
 Requires: openmpi-license = %{version}-%{release}
 Requires: openmpi-man = %{version}-%{release}
-BuildRequires : db-dev
 BuildRequires : flex
 BuildRequires : gfortran
 BuildRequires : grep
@@ -50,7 +49,6 @@ Summary: bin components for the openmpi package.
 Group: Binaries
 Requires: openmpi-data = %{version}-%{release}
 Requires: openmpi-license = %{version}-%{release}
-Requires: openmpi-man = %{version}-%{release}
 
 %description bin
 bin components for the openmpi package.
@@ -70,7 +68,9 @@ Group: Development
 Requires: openmpi-lib = %{version}-%{release}
 Requires: openmpi-bin = %{version}-%{release}
 Requires: openmpi-data = %{version}-%{release}
+Requires: openmpi-man = %{version}-%{release}
 Provides: openmpi-devel = %{version}-%{release}
+Requires: openmpi = %{version}-%{release}
 
 %description dev
 dev components for the openmpi package.
@@ -111,8 +111,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542410883
-export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error   -Wl,-z,max-page-size=0x1000 -m64 -march=westmere -mtune=haswell"
+export SOURCE_DATE_EPOCH=1551155157
+export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
 unset LDFLAGS
 export AR=gcc-ar
@@ -137,7 +137,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1542410883
+export SOURCE_DATE_EPOCH=1551155157
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp LICENSE %{buildroot}/usr/share/package-licenses/openmpi/LICENSE

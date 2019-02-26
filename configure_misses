@@ -75,6 +75,9 @@ Configure miss: shlwapi.h
 Configure miss: sys/synch.h usability
 Configure miss: sys/synch.h presence
 Configure miss: sys/synch.h
+Configure miss: db.h usability
+Configure miss: db.h presence
+Configure miss: db.h
 Configure miss: ndbm.h usability
 Configure miss: ndbm.h presence
 Configure miss: ndbm.h
@@ -151,7 +154,6 @@ Configure miss: cpuset_setid
 Configure miss: numaif.h usability
 Configure miss: numaif.h presence
 Configure miss: numaif.h
-Configure miss: XOpenDisplay in -lX11
 Configure miss: if plugin support is enabled
 Configure miss: infiniband/verbs.h usability
 Configure miss: infiniband/verbs.h presence
