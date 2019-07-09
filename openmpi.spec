@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 2.1.3
-Release  : 22
+Release  : 23
 URL      : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.3.tar.bz2
 Source0  : https://www.open-mpi.org/software/ompi/v2.1/downloads/openmpi-2.1.3.tar.bz2
 Summary  : High performance message passing library (MPI)
@@ -71,6 +71,7 @@ Requires: openmpi-bin = %{version}-%{release}
 Requires: openmpi-data = %{version}-%{release}
 Provides: openmpi-devel = %{version}-%{release}
 Requires: openmpi = %{version}-%{release}
+Requires: openmpi = %{version}-%{release}
 
 %description dev
 dev components for the openmpi package.
@@ -111,8 +112,9 @@ man components for the openmpi package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1555601640
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1562705197
+export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
 unset LDFLAGS
@@ -131,14 +133,14 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1555601640
+export SOURCE_DATE_EPOCH=1562705197
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp LICENSE %{buildroot}/usr/share/package-licenses/openmpi/LICENSE
@@ -297,15 +299,6 @@ cp opal/mca/pmix/pmix112/pmix/LICENSE %{buildroot}/usr/share/package-licenses/op
 /usr/include/openshmem/oshmem/version.h
 /usr/include/openshmem/oshmem_config.h
 /usr/include/shmem.fh
-/usr/lib64/libmca_common_sm.so
-/usr/lib64/libmpi.so
-/usr/lib64/libmpi_mpifh.so
-/usr/lib64/libmpi_usempi_ignore_tkr.so
-/usr/lib64/libmpi_usempif08.so
-/usr/lib64/libompitrace.so
-/usr/lib64/libopen-pal.so
-/usr/lib64/libopen-rte.so
-/usr/lib64/liboshmem.so
 /usr/lib64/pkgconfig/ompi-c.pc
 /usr/lib64/pkgconfig/ompi-cxx.pc
 /usr/lib64/pkgconfig/ompi-f77.pc
@@ -952,22 +945,31 @@ cp opal/mca/pmix/pmix112/pmix/LICENSE %{buildroot}/usr/share/package-licenses/op
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/libmca_common_sm.so
 /usr/lib64/libmca_common_sm.so.20
 /usr/lib64/libmca_common_sm.so.20.10.1
+/usr/lib64/libmpi.so
 /usr/lib64/libmpi.so.20
 /usr/lib64/libmpi.so.20.10.2
+/usr/lib64/libmpi_mpifh.so
 /usr/lib64/libmpi_mpifh.so.20
 /usr/lib64/libmpi_mpifh.so.20.12.0
+/usr/lib64/libmpi_usempi_ignore_tkr.so
 /usr/lib64/libmpi_usempi_ignore_tkr.so.20
 /usr/lib64/libmpi_usempi_ignore_tkr.so.20.11.0
+/usr/lib64/libmpi_usempif08.so
 /usr/lib64/libmpi_usempif08.so.20
 /usr/lib64/libmpi_usempif08.so.20.11.0
+/usr/lib64/libompitrace.so
 /usr/lib64/libompitrace.so.20
 /usr/lib64/libompitrace.so.20.10.0
+/usr/lib64/libopen-pal.so
 /usr/lib64/libopen-pal.so.20
 /usr/lib64/libopen-pal.so.20.10.3
+/usr/lib64/libopen-rte.so
 /usr/lib64/libopen-rte.so.20
 /usr/lib64/libopen-rte.so.20.10.3
+/usr/lib64/liboshmem.so
 /usr/lib64/liboshmem.so.20
 /usr/lib64/liboshmem.so.20.10.2
 /usr/lib64/openmpi/libompi_dbg_msgq.so
