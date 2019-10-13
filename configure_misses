@@ -25,7 +25,7 @@ Configure miss: if have cuda support
 Configure miss: if user requested PMI support
 Configure miss: if user requested internal PMIx support()
 Configure miss: pmix.h in /usr
-Configure miss: pmix.h in /usr/include
+Configure miss: version 4x
 Configure miss: if want orterun "--prefix" behavior to be enabled by default
 Configure miss: if want sparse process groups
 Configure miss: if want peruse support
@@ -230,11 +230,6 @@ Configure miss: knem_io.h
 Configure miss: no configure components in framework crs
 Configure miss: if MCA component crs:self can compile
 Configure miss: if MCA component dl:libltdl can compile
-Configure miss: event2/event.h usability
-Configure miss: event2/event.h presence
-Configure miss: event2/event.h
-Configure miss: if MCA component event:external can compile
-Configure miss: if event external component succeeded
 Configure miss: WIN32
 Configure miss: CYGWIN
 Configure miss: sys/event.h usability
@@ -253,9 +248,11 @@ Configure miss: whether KERN_ARND is declared
 Configure miss: arc4random
 Configure miss: /dev/poll support
 Configure miss: epoll syscall support
+Configure miss: port_create
 Configure miss: evport support
 Configure miss: struct sockaddr_in6.sin6_len
 Configure miss: struct sockaddr_storage.__ss_family
+Configure miss: if MCA component event:libevent2022 can compile
 Configure miss: NetBSD, FreeBSD, OpenBSD, or DragonFly
 Configure miss: if MCA component if:bsdx_ipv4 can compile
 Configure miss: some flavor of BSD
@@ -278,9 +275,10 @@ Configure miss: CRAY_ALPSUTIL
 Configure miss: CRAY_ALPS
 Configure miss: CRAY_WLM_DETECT
 Configure miss: if MCA component pmix:cray can compile
+Configure miss: if external component is version 1.x
 Configure miss: if MCA component pmix:ext1x can compile
+Configure miss: if external component is version 2.x
 Configure miss: if MCA component pmix:ext2x can compile
-Configure miss: if MCA component pmix:ext3x can compile
 Configure miss: if user wants Flux support to link against PMI library
 Configure miss: if PMIx timing is enabled
 Configure miss: if want to install standalone libpmix
@@ -354,6 +352,8 @@ Configure miss: if MCA component pnet:opa can compile
 Configure miss: if MCA component psec:dummy_handshake can compile
 Configure miss: will munge support be built
 Configure miss: if MCA component psec:munge can compile
+Configure miss: if v3.x component is to be used
+Configure miss: if MCA component pmix:pmix3x can compile
 Configure miss: if MCA component pmix:s1 can compile
 Configure miss: if MCA component pmix:s2 can compile
 Configure miss: if MCA component pstat:test can compile

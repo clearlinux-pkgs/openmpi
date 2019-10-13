@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.0.2
-Release  : 24
+Release  : 25
 URL      : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Summary  : High performance message passing library (MPI)
@@ -20,11 +20,13 @@ BuildRequires : gfortran
 BuildRequires : glibc-bin
 BuildRequires : grep
 BuildRequires : hwloc-dev
+BuildRequires : libevent-dev
 BuildRequires : libpciaccess-dev
 BuildRequires : openssl-dev
 BuildRequires : pkgconfig(ice)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(zlib)
+BuildRequires : pmix-dev
 BuildRequires : sed
 BuildRequires : systemd-dev
 BuildRequires : valgrind
@@ -112,7 +114,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570993752
+export SOURCE_DATE_EPOCH=1570999515
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
@@ -140,16 +142,16 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1570993752
+export SOURCE_DATE_EPOCH=1570999515
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
-cp LICENSE %{buildroot}/usr/share/package-licenses/openmpi/LICENSE
-cp contrib/dist/mofed/debian/copyright %{buildroot}/usr/share/package-licenses/openmpi/contrib_dist_mofed_debian_copyright
-cp ompi/mca/topo/treematch/treematch/COPYING %{buildroot}/usr/share/package-licenses/openmpi/ompi_mca_topo_treematch_treematch_COPYING
-cp ompi/mca/topo/treematch/treematch/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/ompi_mca_topo_treematch_treematch_LICENSE
-cp opal/mca/event/libevent2022/libevent/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/opal_mca_event_libevent2022_libevent_LICENSE
-cp opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/opal_mca_hwloc_hwloc201_hwloc_COPYING
-cp opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/opal_mca_pmix_pmix3x_pmix_LICENSE
+cp %{_builddir}/openmpi-4.0.2/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/3a8651f82da49e9b767fe0e427428c2bbb34ffb2
+cp %{_builddir}/openmpi-4.0.2/contrib/dist/mofed/debian/copyright %{buildroot}/usr/share/package-licenses/openmpi/3a8651f82da49e9b767fe0e427428c2bbb34ffb2
+cp %{_builddir}/openmpi-4.0.2/ompi/mca/topo/treematch/treematch/COPYING %{buildroot}/usr/share/package-licenses/openmpi/1d219195f5b198de4d80822b54ee0511f0d38361
+cp %{_builddir}/openmpi-4.0.2/ompi/mca/topo/treematch/treematch/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/80be8a39adf3f4419e3f7153aba2ae318eeec910
+cp %{_builddir}/openmpi-4.0.2/opal/mca/event/libevent2022/libevent/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/458149cf961c544a997c5de2d3df83cab6e2c08c
+cp %{_builddir}/openmpi-4.0.2/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd
+cp %{_builddir}/openmpi-4.0.2/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
 %make_install
 
 %files
@@ -248,7 +250,7 @@ cp opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/ope
 /usr/share/openmpi/help-plm-rsh.txt
 /usr/share/openmpi/help-plm-slurm.txt
 /usr/share/openmpi/help-pmix-base.txt
-/usr/share/openmpi/help-pmix-pmix3x.txt
+/usr/share/openmpi/help-pmix-ext3x.txt
 /usr/share/openmpi/help-ras-base.txt
 /usr/share/openmpi/help-ras-simulator.txt
 /usr/share/openmpi/help-ras-slurm.txt
@@ -265,14 +267,6 @@ cp opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/ope
 /usr/share/openmpi/mpifort-wrapper-data.txt
 /usr/share/openmpi/openmpi-valgrind.supp
 /usr/share/openmpi/ortecc-wrapper-data.txt
-/usr/share/pmix/help-pmix-mca-base.txt
-/usr/share/pmix/help-pmix-mca-var.txt
-/usr/share/pmix/help-pmix-plog.txt
-/usr/share/pmix/help-pmix-psensor-file.txt
-/usr/share/pmix/help-pmix-psensor-heartbeat.txt
-/usr/share/pmix/help-pmix-runtime.txt
-/usr/share/pmix/help-pmix-server.txt
-/usr/share/pmix/pmix-valgrind.supp
 
 %files dev
 %defattr(-,root,root,-)
@@ -745,9 +739,6 @@ cp opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/ope
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libmca_common_dstore.so
-/usr/lib64/libmca_common_dstore.so.1
-/usr/lib64/libmca_common_dstore.so.1.0.1
 /usr/lib64/libmca_common_monitoring.so
 /usr/lib64/libmca_common_monitoring.so.50
 /usr/lib64/libmca_common_monitoring.so.50.10.0
@@ -834,9 +825,9 @@ cp opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/ope
 /usr/lib64/openmpi/mca_plm_isolated.so
 /usr/lib64/openmpi/mca_plm_rsh.so
 /usr/lib64/openmpi/mca_plm_slurm.so
+/usr/lib64/openmpi/mca_pmix_ext3x.so
 /usr/lib64/openmpi/mca_pmix_flux.so
 /usr/lib64/openmpi/mca_pmix_isolated.so
-/usr/lib64/openmpi/mca_pmix_pmix3x.so
 /usr/lib64/openmpi/mca_pml_cm.so
 /usr/lib64/openmpi/mca_pml_monitoring.so
 /usr/lib64/openmpi/mca_pml_ob1.so
@@ -877,36 +868,15 @@ cp opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/ope
 /usr/lib64/openmpi/mca_topo_basic.so
 /usr/lib64/openmpi/mca_topo_treematch.so
 /usr/lib64/openmpi/mca_vprotocol_pessimist.so
-/usr/lib64/pmix/mca_bfrops_v12.so
-/usr/lib64/pmix/mca_bfrops_v20.so
-/usr/lib64/pmix/mca_bfrops_v21.so
-/usr/lib64/pmix/mca_bfrops_v3.so
-/usr/lib64/pmix/mca_gds_ds12.so
-/usr/lib64/pmix/mca_gds_ds21.so
-/usr/lib64/pmix/mca_gds_hash.so
-/usr/lib64/pmix/mca_plog_default.so
-/usr/lib64/pmix/mca_plog_stdfd.so
-/usr/lib64/pmix/mca_plog_syslog.so
-/usr/lib64/pmix/mca_pnet_tcp.so
-/usr/lib64/pmix/mca_pnet_test.so
-/usr/lib64/pmix/mca_preg_native.so
-/usr/lib64/pmix/mca_psec_native.so
-/usr/lib64/pmix/mca_psec_none.so
-/usr/lib64/pmix/mca_psensor_file.so
-/usr/lib64/pmix/mca_psensor_heartbeat.so
-/usr/lib64/pmix/mca_pshmem_mmap.so
-/usr/lib64/pmix/mca_ptl_tcp.so
-/usr/lib64/pmix/mca_ptl_usock.so
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/openmpi/LICENSE
-/usr/share/package-licenses/openmpi/contrib_dist_mofed_debian_copyright
-/usr/share/package-licenses/openmpi/ompi_mca_topo_treematch_treematch_COPYING
-/usr/share/package-licenses/openmpi/ompi_mca_topo_treematch_treematch_LICENSE
-/usr/share/package-licenses/openmpi/opal_mca_event_libevent2022_libevent_LICENSE
-/usr/share/package-licenses/openmpi/opal_mca_hwloc_hwloc201_hwloc_COPYING
-/usr/share/package-licenses/openmpi/opal_mca_pmix_pmix3x_pmix_LICENSE
+/usr/share/package-licenses/openmpi/1d219195f5b198de4d80822b54ee0511f0d38361
+/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd
+/usr/share/package-licenses/openmpi/3a8651f82da49e9b767fe0e427428c2bbb34ffb2
+/usr/share/package-licenses/openmpi/458149cf961c544a997c5de2d3df83cab6e2c08c
+/usr/share/package-licenses/openmpi/80be8a39adf3f4419e3f7153aba2ae318eeec910
+/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
 
 %files man
 %defattr(0644,root,root,0755)

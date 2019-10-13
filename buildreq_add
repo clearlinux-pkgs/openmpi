@@ -3,3 +3,5 @@
 hwloc-dev
 libpciaccess-dev
 openssl-dev
+pmix-dev
+libevent-dev
