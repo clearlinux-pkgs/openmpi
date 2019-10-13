@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.0.2
-Release  : 25
+Release  : 26
 URL      : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Summary  : High performance message passing library (MPI)
