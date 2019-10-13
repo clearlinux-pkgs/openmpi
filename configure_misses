@@ -22,26 +22,26 @@ Configure miss: if --with-cuda is set
 Configure miss: whether CU_POINTER_ATTRIBUTE_SYNC_MEMOPS is declared
 Configure miss: whether cuPointerGetAttributes is declared
 Configure miss: if have cuda support
-Configure miss: if user requested external PMIx support()
+Configure miss: if user requested PMI support
+Configure miss: if user requested internal PMIx support()
+Configure miss: pmix.h in /usr
+Configure miss: pmix.h in /usr/include
 Configure miss: if want orterun "--prefix" behavior to be enabled by default
 Configure miss: if want sparse process groups
 Configure miss: if want peruse support
 Configure miss: if want C++ bindings
+Configure miss: if gcc requires a flag for C11
 Configure miss: Interix environment
 Configure miss: int128_t
 Configure miss: uint128_t
-Configure miss: C bool type
 Configure miss: if able to build the MPI C++ bindings
-Configure miss: OSX locations
-Configure miss: Linux locations
-Configure miss: Solaris locations
-Configure miss: Java support available
+Configure miss: __attribute__(optnone)
 Configure miss: if want Java bindings
-Configure miss: processor support of __atomic builtin atomic compare-and-swap on 128-bit values
-Configure miss: __atomic builtin atomic compare-and-swap on 128-bit values with -mcx16 flag
+Configure miss: __atomic_compare_exchange_n
+Configure miss: __atomic_compare_exchange_n with -mcx16
+Configure miss: if __int128 atomic compare-and-swap is always lock-free
 Configure miss: if .proc/endp is needed
 Configure miss: if .align directive takes logarithmic value
-Configure miss: atomic assembly filename
 Configure miss: extra arguments to build a shared library
 Configure miss: gfortran warnings flags
 Configure miss: Fortran flag to compile .f files
@@ -54,6 +54,9 @@ Configure miss: if Fortran compiler supports COMPLEX*4
 Configure miss: Fortran compiler ignore TKR syntax
 Configure miss: Fortran compiler support of TYPE(*), DIMENSION(*)
 Configure miss: Fortran compiler F08 assumed rank syntax
+Configure miss: stropts.h usability
+Configure miss: stropts.h presence
+Configure miss: stropts.h
 Configure miss: sys/tree.h usability
 Configure miss: sys/tree.h presence
 Configure miss: sys/tree.h
@@ -97,6 +100,9 @@ Configure miss: if C++ compiler and POSIX threads work with -kthread
 Configure miss: if Fortran compiler and POSIX threads work with -Kthread
 Configure miss: if Fortran compiler and POSIX threads work with -kthread
 Configure miss: if threads have different pids (pthreads on linux)
+Configure miss: infiniband/verbs.h usability
+Configure miss: infiniband/verbs.h presence
+Configure miss: infiniband/verbs.h
 Configure miss: KAFFINITY
 Configure miss: PROCESSOR_CACHE_TYPE
 Configure miss: CACHE_DESCRIPTOR
@@ -114,6 +120,7 @@ Configure miss: PSAPI_WORKING_SET_EX_BLOCK
 Configure miss: PSAPI_WORKING_SET_EX_INFORMATION
 Configure miss: PROCESSOR_NUMBER
 Configure miss: main in -lgdi32
+Configure miss: PostQuitMessage in -luser32
 Configure miss: sys/lgrp_user.h usability
 Configure miss: sys/lgrp_user.h presence
 Configure miss: sys/lgrp_user.h
@@ -134,11 +141,12 @@ Configure miss: mach/mach_init.h presence
 Configure miss: mach/mach_init.h
 Configure miss: whether CTL_HW is declared
 Configure miss: whether HW_NCPU is declared
+Configure miss: whether _strdup is declared
+Configure miss: whether _putenv is declared
 Configure miss: whether getprogname is declared
 Configure miss: whether getexecname is declared
 Configure miss: whether GetModuleFileName is declared
 Configure miss: old prototype of sched_setaffinity
-Configure miss: KERRIGHED
 Configure miss: lib
 Configure miss: fls
 Configure miss: flsl
@@ -151,19 +159,33 @@ Configure miss: sys/cpuset.h
 Configure miss: cpuset_setaffinity
 Configure miss: library containing pthread_getthrds_np
 Configure miss: cpuset_setid
-Configure miss: numaif.h usability
-Configure miss: numaif.h presence
-Configure miss: numaif.h
 Configure miss: if plugin support is enabled
-Configure miss: infiniband/verbs.h usability
-Configure miss: infiniband/verbs.h presence
-Configure miss: infiniband/verbs.h
-Configure miss: if MCA component hwloc:external can compile
-Configure miss: if user requested PMI support
+Configure miss: if MCA component hwloc:hwloc201 can compile
 Configure miss: which components should be static
 Configure miss: if MCA component common:cuda can compile
-Configure miss: CRAY_UGNI
-Configure miss: if MCA component common:ugni can compile
+Configure miss: ucx
+Configure miss: ucp/api/ucp.h usability
+Configure miss: ucp/api/ucp.h presence
+Configure miss: ucp/api/ucp.h
+Configure miss: ucp/api/ucp.h usability
+Configure miss: ucp/api/ucp.h presence
+Configure miss: ucp/api/ucp.h
+Configure miss: whether ucp_tag_send_nbr is declared
+Configure miss: whether ucp_ep_flush_nb is declared
+Configure miss: whether ucp_worker_flush_nb is declared
+Configure miss: whether ucp_request_check_status is declared
+Configure miss: whether ucp_put_nb is declared
+Configure miss: whether ucp_get_nb is declared
+Configure miss: whether ucm_test_events is declared
+Configure miss: whether UCP_ATOMIC_POST_OP_AND is declared
+Configure miss: whether UCP_ATOMIC_POST_OP_OR is declared
+Configure miss: whether UCP_ATOMIC_POST_OP_XOR is declared
+Configure miss: whether UCP_ATOMIC_FETCH_OP_FAND is declared
+Configure miss: whether UCP_ATOMIC_FETCH_OP_FOR is declared
+Configure miss: whether UCP_ATOMIC_FETCH_OP_FXOR is declared
+Configure miss: whether UCP_PARAM_FIELD_ESTIMATED_NUM_PPN is declared
+Configure miss: whether UCP_WORKER_ATTR_FIELD_ADDRESS_FLAGS is declared
+Configure miss: if MCA component common:ucx can compile
 Configure miss: if want to add padding to the openib BTL control header
 Configure miss: infiniband/verbs.h usability
 Configure miss: infiniband/verbs.h presence
@@ -172,12 +194,7 @@ Configure miss: if ConnectX XRC support is enabled
 Configure miss: if ConnectIB XRC support is enabled
 Configure miss: if dynamic SL is enabled
 Configure miss: if MCA component common:verbs can compile
-Configure miss: rdma/fabric.h usability
-Configure miss: rdma/fabric.h presence
-Configure miss: rdma/fabric.h
-Configure miss: if MCA component common:libfabric can compile
 Configure miss: if MCA component common:verbs_usnic can compile
-Configure miss: m4 configure components in framework backtrace
 Configure miss: printstack
 Configure miss: if MCA component backtrace:printstack can compile
 Configure miss: if MCA component backtrace:none can compile
@@ -188,8 +205,21 @@ Configure miss: whether ibv_exp_create_qp is declared
 Configure miss: whether ibv_exp_query_device is declared
 Configure miss: whether IBV_EXP_QP_INIT_ATTR_ATOMICS_ARG is declared
 Configure miss: struct ibv_exp_device_attr.ext_atom
-Configure miss: struct ibv_exp_device_attr.ext_atomic_cap
+Configure miss: struct ibv_exp_device_attr.exp_atomic_cap
 Configure miss: if MCA component btl:openib can compile
+Configure miss: portals4.h usability
+Configure miss: portals4.h presence
+Configure miss: portals4.h
+Configure miss: whether to enable flow control
+Configure miss: if MCA component btl:portals4 can compile
+Configure miss: if MCA component btl:smcuda can compile
+Configure miss: if MCA component btl:uct can compile
+Configure miss: CRAY_UGNI
+Configure miss: if MCA component btl:ugni can compile
+Configure miss: rdma/fabric.h usability
+Configure miss: rdma/fabric.h presence
+Configure miss: rdma/fabric.h
+Configure miss: if MCA component btl:usnic can compile
 Configure miss: Cray XPMEM support... checking for CRAY_XPMEM
 Configure miss: xpmem.h usability
 Configure miss: xpmem.h presence
@@ -197,21 +227,14 @@ Configure miss: xpmem.h
 Configure miss: knem_io.h usability
 Configure miss: knem_io.h presence
 Configure miss: knem_io.h
-Configure miss: portals4.h usability
-Configure miss: portals4.h presence
-Configure miss: portals4.h
-Configure miss: whether to enable flow control
-Configure miss: if MCA component btl:portals4 can compile
-Configure miss: whether libfabric support is available
-Configure miss: if MCA component btl:usnic can compile
-Configure miss: if MCA component btl:ugni can compile
-Configure miss: if MCA component btl:smcuda can compile
-Configure miss: scif.h usability
-Configure miss: scif.h presence
-Configure miss: scif.h
-Configure miss: if MCA component btl:scif can compile
+Configure miss: no configure components in framework crs
+Configure miss: if MCA component crs:self can compile
 Configure miss: if MCA component dl:libltdl can compile
+Configure miss: event2/event.h usability
+Configure miss: event2/event.h presence
+Configure miss: event2/event.h
 Configure miss: if MCA component event:external can compile
+Configure miss: if event external component succeeded
 Configure miss: WIN32
 Configure miss: CYGWIN
 Configure miss: sys/event.h usability
@@ -233,14 +256,13 @@ Configure miss: epoll syscall support
 Configure miss: evport support
 Configure miss: struct sockaddr_in6.sin6_len
 Configure miss: struct sockaddr_storage.__ss_family
+Configure miss: NetBSD, FreeBSD, OpenBSD, or DragonFly
+Configure miss: if MCA component if:bsdx_ipv4 can compile
 Configure miss: some flavor of BSD
 Configure miss: if MCA component if:bsdx_ipv6 can compile
 Configure miss: if MCA component if:solaris_ipv6 can compile
-Configure miss: NetBSD, FreeBSD, OpenBSD, or DragonFly
-Configure miss: if MCA component if:bsdx_ipv4 can compile
 Configure miss: if --enable-memchecker was specified
 Configure miss: if MCA component memchecker:valgrind can compile
-Configure miss: whether __mmap is declared
 Configure miss: whether __syscall is declared
 Configure miss: __syscall
 Configure miss: Solaris
@@ -249,17 +271,47 @@ Configure miss: memkind.h usability
 Configure miss: memkind.h presence
 Configure miss: memkind.h
 Configure miss: if MCA component mpool:memkind can compile
-Configure miss: if MCA component pmix:s1 can compile
+Configure miss: if MCA component patcher:linux can compile
 Configure miss: Cray PMI support... checking for CRAY_PMI
+Configure miss: ALPS support cle level unknown... checking for CRAY_ALPSLLI
+Configure miss: CRAY_ALPSUTIL
+Configure miss: CRAY_ALPS
+Configure miss: CRAY_WLM_DETECT
 Configure miss: if MCA component pmix:cray can compile
+Configure miss: if MCA component pmix:ext1x can compile
+Configure miss: if MCA component pmix:ext2x can compile
+Configure miss: if MCA component pmix:ext3x can compile
+Configure miss: if user wants Flux support to link against PMI library
+Configure miss: if PMIx timing is enabled
+Configure miss: if want to install standalone libpmix
 Configure miss: if want developer-level compiler pickyness
 Configure miss: if want developer-level debugging code
 Configure miss: if want to install project-internal header files
+Configure miss: if tests and examples are to be installed
 Configure miss: if want developer-level timing support
+Configure miss: if want to disable binaries
+Configure miss: if want build psec/dummy_handshake
+Configure miss: __NetBSD__
+Configure miss: __FreeBSD__
+Configure miss: __OpenBSD__
+Configure miss: __DragonFly__
+Configure miss: __386BSD__
+Configure miss: __bsdi__
+Configure miss: __APPLE__
+Configure miss: __sun__
+Configure miss: __sun
+Configure miss: extra lib
+Configure miss: extra ltlib
+Configure miss: if gcc requires a flag for C11
 Configure miss: uint128_t
 Configure miss: C bool type
-Configure miss: processor support of __atomic builtin atomic compare-and-swap on 128-bit values
-Configure miss: __atomic builtin atomic compare-and-swap on 128-bit values with -mcx16 flag
+Configure miss: __attribute__(optnone)
+Configure miss: atomic_compare_exchange_strong_16
+Configure miss: atomic_compare_exchange_strong_16 with -mcx16
+Configure miss: atomic_compare_exchange_strong_16 with -latomic
+Configure miss: atomic_compare_exchange_strong_16
+Configure miss: atomic_compare_exchange_strong_16 with -mcx16
+Configure miss: atomic_compare_exchange_strong_16 with -latomic
 Configure miss: if .proc/endp is needed
 Configure miss: if .align directive takes logarithmic value
 Configure miss: net/uio.h usability
@@ -281,33 +333,45 @@ Configure miss: struct ucred.cr_uid
 Configure miss: struct sockpeercred.uid
 Configure miss: strncpy_s
 Configure miss: broken qsort
-Configure miss: will sasl support be built
+Configure miss: if C compiler and POSIX threads work as is
+Configure miss: if C compiler and POSIX threads work with -Kthread
+Configure miss: if C compiler and POSIX threads work with -kthread
+Configure miss: if threads have different pids (pthreads on linux)
+Configure miss: whether to enable symbol visibility
+Configure miss: will libev support be built
+Configure miss: which components should be static
+Configure miss: if MCA component pdl:plibltdl can compile
+Configure miss: NetBSD, FreeBSD, OpenBSD, or DragonFly
+Configure miss: if MCA component pif:bsdx_ipv4 can compile
+Configure miss: some flavor of BSD
+Configure miss: if MCA component pif:bsdx_ipv6 can compile
+Configure miss: if MCA component pif:solaris_ipv6 can compile
+Configure miss: psm2.h usability
+Configure miss: psm2.h presence
+Configure miss: psm2.h
+Configure miss: if opamgt requested
+Configure miss: if MCA component pnet:opa can compile
+Configure miss: if MCA component psec:dummy_handshake can compile
 Configure miss: will munge support be built
+Configure miss: if MCA component psec:munge can compile
+Configure miss: if MCA component pmix:s1 can compile
 Configure miss: if MCA component pmix:s2 can compile
-Configure miss: if MCA component pmix:external can compile
 Configure miss: if MCA component pstat:test can compile
+Configure miss: if MCA component rcache:gpusm can compile
 Configure miss: if MCA component rcache:rgpusm can compile
 Configure miss: CRAY_UDREG
 Configure miss: if MCA component rcache:udreg can compile
-Configure miss: if MCA component rcache:gpusm can compile
-Configure miss: munge.h usability
-Configure miss: munge.h presence
-Configure miss: munge.h
-Configure miss: will munge support be built
-Configure miss: if MCA component sec:munge can compile
-Configure miss: want keystone security
-Configure miss: if MCA component sec:keystone can compile
+Configure miss: /usr/include/libnl3
+Configure miss: /usr/local/include/libnl3
+Configure miss: if MCA component reachable:netlink can compile
 Configure miss: sn/mmtimer.h usability
 Configure miss: sn/mmtimer.h presence
 Configure miss: sn/mmtimer.h
 Configure miss: if MCA component timer:altix can compile
-Configure miss: if MCA component timer:solaris can compile
 Configure miss: if MCA component timer:darwin can compile
-Configure miss: ALPS support cle level unknown... checking for CRAY_ALPSLLI
-Configure miss: CRAY_ALPSUTIL
-Configure miss: CRAY_ALPS
-Configure miss: CRAY_WLM_DETECT
+Configure miss: if MCA component timer:solaris can compile
 Configure miss: if MCA component common:alps can compile
+Configure miss: if MCA component ess:alps can compile
 Configure miss: lsf/lsf.h usability
 Configure miss: lsf/lsf.h presence
 Configure miss: lsf/lsf.h
@@ -317,18 +381,11 @@ Configure miss: tm.h usability
 Configure miss: tm.h presence
 Configure miss: tm.h
 Configure miss: if MCA component ess:tm can compile
-Configure miss: if MCA component ess:alps can compile
 Configure miss: if MCA component odls:alps can compile
-Configure miss: infiniband/verbs.h usability
-Configure miss: infiniband/verbs.h presence
-Configure miss: infiniband/verbs.h
-Configure miss: if MCA component oob:ud can compile
 Configure miss: if MCA component oob:alps can compile
+Configure miss: if MCA component plm:alps can compile
 Configure miss: if MCA component plm:lsf can compile
 Configure miss: if MCA component plm:tm can compile
-Configure miss: if MCA component plm:alps can compile
-Configure miss: if MCA component ras:lsf can compile
-Configure miss: if MCA component ras:tm can compile
 Configure miss: alps/apInfo.h usability
 Configure miss: alps/apInfo.h presence
 Configure miss: alps/apInfo.h
@@ -337,18 +394,29 @@ Configure miss: if user requested SGE build
 Configure miss: qrsh
 Configure miss: SGE_ROOT environment variable
 Configure miss: if MCA component ras:gridengine can compile
-Configure miss: if MCA component rml:ftrm can compile
-Configure miss: no configure components in framework state
+Configure miss: if MCA component ras:lsf can compile
+Configure miss: if MCA component ras:tm can compile
+Configure miss: if MCA component schizo:alps can compile
+Configure miss: mapi.h usability
+Configure miss: mapi.h presence
+Configure miss: mapi.h
+Configure miss: if MCA component schizo:moab can compile
+Configure miss: singularity
+Configure miss: if MCA component schizo:singularity can compile
+Configure miss: if MCA component snapc:full can compile
+Configure miss: if MCA component sstore:central can compile
+Configure miss: if MCA component sstore:stage can compile
+Configure miss: if MCA component coll:cuda can compile
 Configure miss: fca/fca_api.h usability
 Configure miss: fca/fca_api.h presence
 Configure miss: fca/fca_api.h
 Configure miss: if MCA component coll:fca can compile
-Configure miss: if MCA component coll:cuda can compile
-Configure miss: if MCA component coll:portals4 can compile
 Configure miss: hcoll/api/hcoll_api.h usability
 Configure miss: hcoll/api/hcoll_api.h presence
 Configure miss: hcoll/api/hcoll_api.h
 Configure miss: if MCA component coll:hcoll can compile
+Configure miss: if MCA component coll:portals4 can compile
+Configure miss: if MCA component crcp:bkmrk can compile
 Configure miss: pvfs2.h usability
 Configure miss: pvfs2.h presence
 Configure miss: pvfs2.h
@@ -356,15 +424,6 @@ Configure miss: pvfs2.h usability
 Configure miss: pvfs2.h presence
 Configure miss: pvfs2.h
 Configure miss: if MCA component fbtl:pvfs2 can compile
-Configure miss: if MCA component fbtl:plfs can compile
-Configure miss: pvfs2.h usability
-Configure miss: pvfs2.h presence
-Configure miss: pvfs2.h
-Configure miss: pvfs2.h usability
-Configure miss: pvfs2.h presence
-Configure miss: pvfs2.h
-Configure miss: if MCA component fs:pvfs2 can compile
-Configure miss: if MCA component fs:plfs can compile
 Configure miss: lustre/lustreapi.h usability
 Configure miss: lustre/lustreapi.h presence
 Configure miss: lustre/lustreapi.h
@@ -373,6 +432,13 @@ Configure miss: lustre/lustreapi.h presence
 Configure miss: lustre/lustreapi.h
 Configure miss: required lustre data structures
 Configure miss: if MCA component fs:lustre can compile
+Configure miss: pvfs2.h usability
+Configure miss: pvfs2.h presence
+Configure miss: pvfs2.h
+Configure miss: pvfs2.h usability
+Configure miss: pvfs2.h presence
+Configure miss: pvfs2.h
+Configure miss: if MCA component fs:pvfs2 can compile
 Configure miss: whether clock skew breaks make
 Configure miss: mpix.h
 Configure miss: sys/attr.h usability
@@ -380,12 +446,6 @@ Configure miss: sys/attr.h presence
 Configure miss: sys/attr.h
 Configure miss: int large enough for pointers
 Configure miss: pvfs2-config
-Configure miss: gpfs.h usability
-Configure miss: gpfs.h presence
-Configure miss: gpfs.h
-Configure miss: gpfs_fcntl.h usability
-Configure miss: gpfs_fcntl.h presence
-Configure miss: gpfs_fcntl.h
 Configure miss: f_fstypename member of statfs structure
 Configure miss: st_fstype member of stat structure
 Configure miss: f_basetype member of statvfs structure
@@ -396,30 +456,28 @@ Configure miss: whether lstat needs a declaration
 Configure miss: whether readlink needs a declaration
 Configure miss: whether fsync needs a declaration
 Configure miss: whether ftruncate needs a declaration
-Configure miss: whether lseek64 needs a declaration
 Configure miss: whether usleep needs a declaration
-Configure miss: psm2.h usability
-Configure miss: psm2.h presence
-Configure miss: psm2.h
-Configure miss: if MCA component mtl:psm2 can compile
-Configure miss: if MCA component mtl:portals4 can compile
+Configure miss: if OFI libfabric is available
 Configure miss: if MCA component mtl:ofi can compile
-Configure miss: mxm/api/mxm_api.h usability
-Configure miss: mxm/api/mxm_api.h presence
-Configure miss: mxm/api/mxm_api.h
-Configure miss: MXM version compatibility
-Configure miss: if MCA component mtl:mxm can compile
+Configure miss: if MCA component mtl:portals4 can compile
 Configure miss: psm.h usability
 Configure miss: psm.h presence
 Configure miss: psm.h
 Configure miss: if MCA component mtl:psm can compile
+Configure miss: psm2.h usability
+Configure miss: psm2.h presence
+Configure miss: psm2.h
+Configure miss: if MCA component mtl:psm2 can compile
 Configure miss: if MCA component osc:portals4 can compile
-Configure miss: if MCA component pml:yalla can compile
-Configure miss: ucp/api/ucp.h usability
-Configure miss: ucp/api/ucp.h presence
-Configure miss: ucp/api/ucp.h
-Configure miss: UCX version compatibility
+Configure miss: if MCA component osc:ucx can compile
+Configure miss: if MCA component pml:crcpw can compile
 Configure miss: if MCA component pml:ucx can compile
+Configure miss: mxm/api/mxm_api.h usability
+Configure miss: mxm/api/mxm_api.h presence
+Configure miss: mxm/api/mxm_api.h
+Configure miss: MXM version compatibility
+Configure miss: if MCA component pml:yalla can compile
+Configure miss: if MCA component rte:pmix can compile
 Configure miss: if oshmem/atomic/mxm component can be compiled
 Configure miss: if MCA component atomic:mxm can compile
 Configure miss: if MCA component atomic:ucx can compile
@@ -429,10 +487,12 @@ Configure miss: fca/fca_api.h
 Configure miss: if MCA component scoll:fca can compile
 Configure miss: if MCA component spml:ikrit can compile
 Configure miss: if MCA component spml:ucx can compile
+Configure miss: if MCA component sshmem:ucx can compile
 Configure miss: if MCA component sshmem:verbs can compile
 Configure miss: if MPI Extension affinity has mpif.h bindings
 Configure miss: if MPI Extension affinity has "use mpi" bindings
 Configure miss: if MPI Extension affinity has "use mpi_f08" bindings
+Configure miss: if MPI Extension cr can compile
 Configure miss: if MPI Extension cuda has mpif.h bindings
 Configure miss: if MPI Extension cuda has "use mpi" bindings
 Configure miss: if MPI Extension cuda has "use mpi_f08" bindings

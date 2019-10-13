@@ -2,10 +2,10 @@ libc.so.6
 libdl.so.2
 libgcc_s.so.1
 libgfortran.so.5
+libhwloc.so.15
 libm.so.6
-libpciaccess.so.0
 libpthread.so.0
 libquadmath.so.0
 librt.so.1
-libudev.so.1
 libutil.so.1
+libz.so.1
