@@ -4,10 +4,10 @@
 #
 Name     : openmpi
 Version  : 4.0.2
-Release  : 26
+Release  : 29
 URL      : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
-Summary  : High performance message passing library (MPI)
+Summary  : A powerful implementation of MPI/SHMEM
 Group    : Development/Tools
 License  : BSD-3-Clause BSD-3-Clause-Clear CECILL-1.1 Intel
 Requires: openmpi-bin = %{version}-%{release}
@@ -31,6 +31,7 @@ BuildRequires : sed
 BuildRequires : systemd-dev
 BuildRequires : valgrind
 Patch1: rdtsc.patch
+Patch2: stateless.patch
 
 %description
 Open MPI is an open source implementation of the Message Passing
@@ -73,7 +74,6 @@ Requires: openmpi-bin = %{version}-%{release}
 Requires: openmpi-data = %{version}-%{release}
 Provides: openmpi-devel = %{version}-%{release}
 Requires: openmpi = %{version}-%{release}
-Requires: openmpi = %{version}-%{release}
 
 %description dev
 dev components for the openmpi package.
@@ -108,14 +108,14 @@ man components for the openmpi package.
 %prep
 %setup -q -n openmpi-4.0.2
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570999515
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1571881294
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
@@ -142,7 +142,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1570999515
+export SOURCE_DATE_EPOCH=1571881294
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-4.0.2/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/3a8651f82da49e9b767fe0e427428c2bbb34ffb2
@@ -153,6 +153,10 @@ cp %{_builddir}/openmpi-4.0.2/opal/mca/event/libevent2022/libevent/LICENSE %{bui
 cp %{_builddir}/openmpi-4.0.2/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd
 cp %{_builddir}/openmpi-4.0.2/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
 %make_install
+## install_append content
+mkdir -p %{buildroot}/usr/share/defaults/etc/%{name}
+cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/%{name}/
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -192,6 +196,9 @@ cp %{_builddir}/openmpi-4.0.2/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/defaults/etc/openmpi/openmpi-default-hostfile
+/usr/share/defaults/etc/openmpi/openmpi-mca-params.conf
+/usr/share/defaults/etc/openmpi/openmpi-totalview.tcl
 /usr/share/openmpi/amca-param-sets/example.conf
 /usr/share/openmpi/help-btl-vader.txt
 /usr/share/openmpi/help-coll-sync.txt
