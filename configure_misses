@@ -23,7 +23,7 @@ Configure miss: whether CU_POINTER_ATTRIBUTE_SYNC_MEMOPS is declared
 Configure miss: whether cuPointerGetAttributes is declared
 Configure miss: if have cuda support
 Configure miss: if user requested PMI support
-Configure miss: if user requested internal PMIx support()
+Configure miss: if user requested internal PMIx support(external)
 Configure miss: pmix.h in /usr
 Configure miss: version 4x
 Configure miss: if want orterun "--prefix" behavior to be enabled by default

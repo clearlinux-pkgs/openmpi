@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.0.2
-Release  : 30
+Release  : 31
 URL      : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Summary  : A powerful implementation of MPI/SHMEM
@@ -107,6 +107,7 @@ man components for the openmpi package.
 
 %prep
 %setup -q -n openmpi-4.0.2
+cd %{_builddir}/openmpi-4.0.2
 %patch1 -p1
 %patch2 -p1
 
@@ -115,7 +116,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571881294
+export SOURCE_DATE_EPOCH=1573832969
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
@@ -131,7 +132,10 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-march=native -O3" \
 --with-wrapper-cxxflags-prefix="-march=native -O3" \
---with-wrapper-fcflags-prefix="-march=native -O3"
+--with-wrapper-fcflags-prefix="-march=native -O3" \
+--with-pmix=external \
+--with-libevent=external \
+--with-hwloc=external
 make  %{?_smp_mflags}
 
 %check
@@ -142,7 +146,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1571881294
+export SOURCE_DATE_EPOCH=1573832969
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-4.0.2/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/3a8651f82da49e9b767fe0e427428c2bbb34ffb2
@@ -154,8 +158,8 @@ cp %{_builddir}/openmpi-4.0.2/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}
 cp %{_builddir}/openmpi-4.0.2/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
 %make_install
 ## install_append content
-mkdir -p %{buildroot}/usr/share/defaults/etc/%{name}
-cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/%{name}/
+mkdir -p %{buildroot}/usr/share/defaults/etc/openmpi
+cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 ## install_append end
 
 %files

@@ -1,2 +1,2 @@
-mkdir -p %{buildroot}/usr/share/defaults/etc/%{name}
-cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/%{name}/
+mkdir -p %{buildroot}/usr/share/defaults/etc/openmpi
+cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
