@@ -4,9 +4,10 @@
 #
 Name     : openmpi
 Version  : 4.0.2
-Release  : 35
+Release  : 36
 URL      : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
+Source1  : openmpi
 Summary  : A powerful implementation of MPI/SHMEM
 Group    : Development/Tools
 License  : BSD-3-Clause BSD-3-Clause-Clear CECILL-1.1 Intel
@@ -118,7 +119,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1581027993
+export SOURCE_DATE_EPOCH=1581368539
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
@@ -148,7 +149,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1581027993
+export SOURCE_DATE_EPOCH=1581368539
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-4.0.2/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/3a8651f82da49e9b767fe0e427428c2bbb34ffb2
@@ -159,6 +160,8 @@ cp %{_builddir}/openmpi-4.0.2/opal/mca/event/libevent2022/libevent/LICENSE %{bui
 cp %{_builddir}/openmpi-4.0.2/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd
 cp %{_builddir}/openmpi-4.0.2/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
 %make_install
+mkdir -p %{buildroot}/usr/share/modules/modulefiles
+install -m 0644 -p %{_sourcedir}/openmpi %{buildroot}/usr/share/modules/modulefiles/
 ## install_append content
 mkdir -p %{buildroot}/usr/share/defaults/etc/openmpi
 cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
@@ -205,6 +208,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/share/defaults/etc/openmpi/openmpi-default-hostfile
 /usr/share/defaults/etc/openmpi/openmpi-mca-params.conf
 /usr/share/defaults/etc/openmpi/openmpi-totalview.tcl
+/usr/share/modules/modulefiles/openmpi
 /usr/share/openmpi/amca-param-sets/example.conf
 /usr/share/openmpi/help-btl-vader.txt
 /usr/share/openmpi/help-coll-sync.txt
