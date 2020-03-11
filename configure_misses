@@ -210,7 +210,6 @@ Configure miss: if MCA component btl:openib can compile
 Configure miss: portals4.h usability
 Configure miss: portals4.h presence
 Configure miss: portals4.h
-Configure miss: whether to enable flow control
 Configure miss: if MCA component btl:portals4 can compile
 Configure miss: if MCA component btl:smcuda can compile
 Configure miss: if MCA component btl:uct can compile

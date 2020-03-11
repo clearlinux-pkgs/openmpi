@@ -3,4 +3,3 @@
 #noyield.patch
 rdtsc.patch
 stateless.patch
-fix-calculation-in-simple-grouping.patch

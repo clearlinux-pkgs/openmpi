@@ -1,7 +1,5 @@
-4.0.2
-db-dev
+4.0.3
 flex
 gfortran
-glibc-bin
 systemd-dev
 valgrind
