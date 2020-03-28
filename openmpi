@@ -29,7 +29,7 @@ setenv          MPI_DOC         $MPI_ROOT/share/doc
 prepend-path    PATH            $MPI_ROOT/bin
 prepend-path    LD_LIBRARY_PATH $MPI_ROOT/lib
 prepend-path    MANPATH         $MPI_ROOT/share/man
-prepend-path    PYTHONPATH      $MPI_ROOT/lib/python$pythonVersion/site-­packages
+prepend-path    PYTHONPATH      $MPI_ROOT/lib/python$pythonVersion/site-packages
 prepend-path    PKG_CONFIG_PATH $MPI_ROOT/lib/pkgconfig
 
 prepend-path --delim " " CFLAGS   " -I$MPI_ROOT/include -L$MPI_ROOT/lib"
