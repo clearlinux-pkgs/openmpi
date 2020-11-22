@@ -1,7 +1,11 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+flex
+gfortran
 hwloc-dev
+libevent-dev
 libpciaccess-dev
 openssl-dev
 pmix-dev
-libevent-dev
+systemd-dev
+valgrind

@@ -177,6 +177,7 @@ Configure miss: whether ucp_request_check_status is declared
 Configure miss: whether ucp_put_nb is declared
 Configure miss: whether ucp_get_nb is declared
 Configure miss: whether ucm_test_events is declared
+Configure miss: whether ucm_test_external_events is declared
 Configure miss: whether UCP_ATOMIC_POST_OP_AND is declared
 Configure miss: whether UCP_ATOMIC_POST_OP_OR is declared
 Configure miss: whether UCP_ATOMIC_POST_OP_XOR is declared
@@ -185,6 +186,11 @@ Configure miss: whether UCP_ATOMIC_FETCH_OP_FOR is declared
 Configure miss: whether UCP_ATOMIC_FETCH_OP_FXOR is declared
 Configure miss: whether UCP_PARAM_FIELD_ESTIMATED_NUM_PPN is declared
 Configure miss: whether UCP_WORKER_ATTR_FIELD_ADDRESS_FLAGS is declared
+Configure miss: whether UCP_ATTR_FIELD_MEMORY_TYPES is declared
+Configure miss: whether ucp_tag_send_nbx is declared
+Configure miss: whether ucp_tag_send_sync_nbx is declared
+Configure miss: whether ucp_tag_recv_nbx is declared
+Configure miss: ucp_request_param_t
 Configure miss: if MCA component common:ucx can compile
 Configure miss: if want to add padding to the openib BTL control header
 Configure miss: infiniband/verbs.h usability
@@ -280,7 +286,6 @@ Configure miss: if external component is version 2.x
 Configure miss: if MCA component pmix:ext2x can compile
 Configure miss: if user wants Flux support to link against PMI library
 Configure miss: if PMIx timing is enabled
-Configure miss: if want to install standalone libpmix
 Configure miss: if want developer-level compiler pickyness
 Configure miss: if want developer-level debugging code
 Configure miss: if want to install project-internal header files
@@ -426,10 +431,6 @@ Configure miss: if MCA component fbtl:pvfs2 can compile
 Configure miss: lustre/lustreapi.h usability
 Configure miss: lustre/lustreapi.h presence
 Configure miss: lustre/lustreapi.h
-Configure miss: lustre/lustreapi.h usability
-Configure miss: lustre/lustreapi.h presence
-Configure miss: lustre/lustreapi.h
-Configure miss: required lustre data structures
 Configure miss: if MCA component fs:lustre can compile
 Configure miss: pvfs2.h usability
 Configure miss: pvfs2.h presence
