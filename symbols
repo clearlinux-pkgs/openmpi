@@ -22,6 +22,9 @@ libmca_common_monitoring.so.50:mca_common_monitoring_record_coll
 libmca_common_monitoring.so.50:mca_common_monitoring_record_osc
 libmca_common_monitoring.so.50:mca_common_monitoring_record_pml
 libmca_common_monitoring.so.50:mca_common_monitoring_register
+libmca_common_ompio.so.41:mca_common_ompio_alloc_buf
+libmca_common_ompio.so.41:mca_common_ompio_buffer_alloc_fini
+libmca_common_ompio.so.41:mca_common_ompio_buffer_alloc_init
 libmca_common_ompio.so.41:mca_common_ompio_build_io_array
 libmca_common_ompio.so.41:mca_common_ompio_cart_based_grouping
 libmca_common_ompio.so.41:mca_common_ompio_create_groups
@@ -33,16 +36,20 @@ libmca_common_ompio.so.41:mca_common_ompio_file_delete
 libmca_common_ompio.so.41:mca_common_ompio_file_get_position
 libmca_common_ompio.so.41:mca_common_ompio_file_get_size
 libmca_common_ompio.so.41:mca_common_ompio_file_iread
+libmca_common_ompio.so.41:mca_common_ompio_file_iread_all
 libmca_common_ompio.so.41:mca_common_ompio_file_iread_at
 libmca_common_ompio.so.41:mca_common_ompio_file_iread_at_all
 libmca_common_ompio.so.41:mca_common_ompio_file_iwrite
+libmca_common_ompio.so.41:mca_common_ompio_file_iwrite_all
 libmca_common_ompio.so.41:mca_common_ompio_file_iwrite_at
 libmca_common_ompio.so.41:mca_common_ompio_file_iwrite_at_all
 libmca_common_ompio.so.41:mca_common_ompio_file_open
 libmca_common_ompio.so.41:mca_common_ompio_file_read
+libmca_common_ompio.so.41:mca_common_ompio_file_read_all
 libmca_common_ompio.so.41:mca_common_ompio_file_read_at
 libmca_common_ompio.so.41:mca_common_ompio_file_read_at_all
 libmca_common_ompio.so.41:mca_common_ompio_file_write
+libmca_common_ompio.so.41:mca_common_ompio_file_write_all
 libmca_common_ompio.so.41:mca_common_ompio_file_write_at
 libmca_common_ompio.so.41:mca_common_ompio_file_write_at_all
 libmca_common_ompio.so.41:mca_common_ompio_finalize_initial_grouping
@@ -58,6 +65,7 @@ libmca_common_ompio.so.41:mca_common_ompio_print_time_info
 libmca_common_ompio.so.41:mca_common_ompio_progress
 libmca_common_ompio.so.41:mca_common_ompio_register_print_entry
 libmca_common_ompio.so.41:mca_common_ompio_register_progress
+libmca_common_ompio.so.41:mca_common_ompio_release_buf
 libmca_common_ompio.so.41:mca_common_ompio_request_alloc
 libmca_common_ompio.so.41:mca_common_ompio_request_fini
 libmca_common_ompio.so.41:mca_common_ompio_request_init
@@ -990,9 +998,11 @@ libmpi.so.40:mca_bml_base_init
 libmpi.so.40:mca_bml_base_inited
 libmpi.so.40:mca_coll_base_alltoall_intra_basic_inplace
 libmpi.so.40:mca_coll_base_alltoallv_intra_basic_inplace
+libmpi.so.40:mca_coll_base_colltype_to_str
 libmpi.so.40:mca_coll_base_comm_select
 libmpi.so.40:mca_coll_base_comm_unselect
 libmpi.so.40:mca_coll_base_find_available
+libmpi.so.40:mca_coll_base_name_to_colltype
 libmpi.so.40:mca_coll_base_reduce_local
 libmpi.so.40:mca_fbtl_base_file_select
 libmpi.so.40:mca_fbtl_base_file_unselect
@@ -1010,7 +1020,10 @@ libmpi.so.40:mca_fs_base_file_set_size
 libmpi.so.40:mca_fs_base_file_sync
 libmpi.so.40:mca_fs_base_file_unselect
 libmpi.so.40:mca_fs_base_find_available
+libmpi.so.40:mca_fs_base_get_file_amode
+libmpi.so.40:mca_fs_base_get_file_perm
 libmpi.so.40:mca_fs_base_get_fstype
+libmpi.so.40:mca_fs_base_get_mpi_err
 libmpi.so.40:mca_fs_base_get_parent_dir
 libmpi.so.40:mca_io_base_delete
 libmpi.so.40:mca_io_base_file_select
@@ -1175,6 +1188,10 @@ libmpi.so.40:ompi_coll_base_bcast_intra_split_bintree
 libmpi.so.40:ompi_coll_base_comm_get_reqs
 libmpi.so.40:ompi_coll_base_exscan_intra_linear
 libmpi.so.40:ompi_coll_base_exscan_intra_recursivedoubling
+libmpi.so.40:ompi_coll_base_file_getnext_long
+libmpi.so.40:ompi_coll_base_file_getnext_size_t
+libmpi.so.40:ompi_coll_base_file_getnext_string
+libmpi.so.40:ompi_coll_base_file_peek_next_char_is
 libmpi.so.40:ompi_coll_base_gather_intra_basic_linear
 libmpi.so.40:ompi_coll_base_gather_intra_binomial
 libmpi.so.40:ompi_coll_base_gather_intra_linear_sync
@@ -1201,6 +1218,7 @@ libmpi.so.40:ompi_coll_base_scan_intra_linear
 libmpi.so.40:ompi_coll_base_scan_intra_recursivedoubling
 libmpi.so.40:ompi_coll_base_scatter_intra_basic_linear
 libmpi.so.40:ompi_coll_base_scatter_intra_binomial
+libmpi.so.40:ompi_coll_base_scatter_intra_linear_nb
 libmpi.so.40:ompi_coll_base_sendrecv_actual
 libmpi.so.40:ompi_coll_base_topo_build_bmtree
 libmpi.so.40:ompi_coll_base_topo_build_chain
@@ -1250,6 +1268,7 @@ libmpi.so.40:ompi_comm_set_name
 libmpi.so.40:ompi_comm_set_nb
 libmpi.so.40:ompi_comm_split
 libmpi.so.40:ompi_comm_split_type
+libmpi.so.40:ompi_comm_split_with_info
 libmpi.so.40:ompi_cr_coord
 libmpi.so.40:ompi_cr_finalize
 libmpi.so.40:ompi_cr_init
@@ -1377,6 +1396,7 @@ libmpi.so.40:ompi_group_calc_plist
 libmpi.so.40:ompi_group_calc_sporadic
 libmpi.so.40:ompi_group_calc_strided
 libmpi.so.40:ompi_group_compare
+libmpi.so.40:ompi_group_count_local_peers
 libmpi.so.40:ompi_group_decrement_proc_count
 libmpi.so.40:ompi_group_difference
 libmpi.so.40:ompi_group_div_ceil
@@ -8603,6 +8623,7 @@ libompitrace.so.40:MPI_Reduce
 libompitrace.so.40:MPI_Request_free
 libompitrace.so.40:MPI_Send
 libompitrace.so.40:MPI_Sendrecv
+libopen-orted-mpir.so:MPIR_Breakpoint
 libopen-pal.so.40:mca_allocator_component_lookup
 libopen-pal.so.40:mca_base_close
 libopen-pal.so.40:mca_base_cmd_line_process_args
@@ -9472,7 +9493,6 @@ libopen-pal.so.40:opal_value_xfer
 libopen-pal.so.40:opal_vasprintf
 libopen-pal.so.40:opal_vsnprintf
 libopen-pal.so.40:opal_warn_fork
-libopen-rte.so.40:MPIR_Breakpoint
 libopen-rte.so.40:orte_add_attribute
 libopen-rte.so.40:orte_app_ctx_state_to_str
 libopen-rte.so.40:orte_attr_key_to_str
