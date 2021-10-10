@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.1
-Release  : 41
+Release  : 42
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.1.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.1.tar.gz
 Source1  : openmpi
@@ -13,6 +13,7 @@ Group    : Development/Tools
 License  : BSD-3-Clause CECILL-1.1 Intel
 Requires: openmpi-bin = %{version}-%{release}
 Requires: openmpi-data = %{version}-%{release}
+Requires: openmpi-filemap = %{version}-%{release}
 Requires: openmpi-lib = %{version}-%{release}
 Requires: openmpi-license = %{version}-%{release}
 Requires: openmpi-man = %{version}-%{release}
@@ -55,6 +56,7 @@ Summary: bin components for the openmpi package.
 Group: Binaries
 Requires: openmpi-data = %{version}-%{release}
 Requires: openmpi-license = %{version}-%{release}
+Requires: openmpi-filemap = %{version}-%{release}
 
 %description bin
 bin components for the openmpi package.
@@ -81,11 +83,20 @@ Requires: openmpi = %{version}-%{release}
 dev components for the openmpi package.
 
 
+%package filemap
+Summary: filemap components for the openmpi package.
+Group: Default
+
+%description filemap
+filemap components for the openmpi package.
+
+
 %package lib
 Summary: lib components for the openmpi package.
 Group: Libraries
 Requires: openmpi-data = %{version}-%{release}
 Requires: openmpi-license = %{version}-%{release}
+Requires: openmpi-filemap = %{version}-%{release}
 
 %description lib
 lib components for the openmpi package.
@@ -112,13 +123,19 @@ man components for the openmpi package.
 cd %{_builddir}/openmpi-4.1.1
 %patch1 -p1
 %patch2 -p1
+pushd ..
+cp -a openmpi-4.1.1 buildavx2
+popd
+pushd ..
+cp -a openmpi-4.1.1 buildavx512
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1619456924
+export SOURCE_DATE_EPOCH=1633825449
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
@@ -128,10 +145,10 @@ unset LDFLAGS
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -142,15 +159,57 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 --with-hwloc=external
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%configure --disable-static --enable-branch-probabilities \
+--enable-builtin-atomics \
+--with-wrapper-cflags-prefix="-O3" \
+--with-wrapper-cxxflags-prefix="-O3" \
+--with-wrapper-fcflags-prefix="-O3" \
+--with-pmix=external \
+--with-libevent=external \
+--with-hwloc=external --with-wrapper-cflags-prefix="-O3 -march=x86-64-v3" \
+--with-wrapper-cxxflags-prefix="-O3 -march=x86-64-v3" \
+--with-wrapper-fcflags-prefix="-O3 -march=x86-64-v3"
+make  %{?_smp_mflags}
+popd
+unset PKG_CONFIG_PATH
+pushd ../buildavx512/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v4"
+%configure --disable-static --enable-branch-probabilities \
+--enable-builtin-atomics \
+--with-wrapper-cflags-prefix="-O3" \
+--with-wrapper-cxxflags-prefix="-O3" \
+--with-wrapper-fcflags-prefix="-O3" \
+--with-pmix=external \
+--with-libevent=external \
+--with-hwloc=external --with-wrapper-cflags-prefix="-O3 -march=x86-64-v4" \
+--with-wrapper-cxxflags-prefix="-O3 -march=x86-64-v4" \
+--with-wrapper-fcflags-prefix="-O3 -march=x86-64-v4"
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check || :
+cd ../buildavx2;
+make %{?_smp_mflags} check || : || :
+cd ../buildavx512;
+make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1619456924
+export SOURCE_DATE_EPOCH=1633825449
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-4.1.1/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/f6dda38e180e8f1915f43c1b7e32df16f78b395c
@@ -160,6 +219,14 @@ cp %{_builddir}/openmpi-4.1.1/ompi/mca/topo/treematch/treematch/LICENSE %{buildr
 cp %{_builddir}/openmpi-4.1.1/opal/mca/event/libevent2022/libevent/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/458149cf961c544a997c5de2d3df83cab6e2c08c
 cp %{_builddir}/openmpi-4.1.1/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd
 cp %{_builddir}/openmpi-4.1.1/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
+pushd ../buildavx2/
+%make_install_v3
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+popd
+pushd ../buildavx512/
+%make_install_v4
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+popd
 %make_install
 mkdir -p %{buildroot}/usr/share/modules/modulefiles
 install -m 0644 -p %{_sourcedir}/openmpi %{buildroot}/usr/share/modules/modulefiles/
@@ -203,6 +270,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/bin/orted
 /usr/bin/orterun
 /usr/bin/profile2mat.pl
+/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -755,6 +823,10 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/share/man/man3/OMPI_Affinity_str.3
 /usr/share/man/man3/OpenMPI.3
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-openmpi
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libmca_common_monitoring.so
@@ -891,6 +963,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/lib64/openmpi/mca_topo_basic.so
 /usr/lib64/openmpi/mca_topo_treematch.so
 /usr/lib64/openmpi/mca_vprotocol_pessimist.so
+/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)

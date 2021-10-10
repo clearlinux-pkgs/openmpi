@@ -1,5 +1,4 @@
 libc.so.6
-libdl.so.2
 libevent_core-2.1.so.7
 libevent_pthreads-2.1.so.7
 libgcc_s.so.1
@@ -7,8 +6,5 @@ libgfortran.so.5
 libhwloc.so.15
 libm.so.6
 libpmix.so.2
-libpthread.so.0
 libquadmath.so.0
-librt.so.1
-libutil.so.1
 libz.so.1
