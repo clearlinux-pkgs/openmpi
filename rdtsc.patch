@@ -1,6 +1,8 @@
---- openmpi-2.1.3/opal/include/opal/sys/x86_64/timer.h~	2017-10-28 20:30:29.000000000 +0000
-+++ openmpi-2.1.3/opal/include/opal/sys/x86_64/timer.h	2019-04-18 15:18:03.054339330 +0000
-@@ -36,7 +36,7 @@
+diff --git a/opal/include/opal/sys/x86_64/timer.h b/opal/include/opal/sys/x86_64/timer.h
+index a367f77..2250046 100644
+--- a/opal/include/opal/sys/x86_64/timer.h
++++ b/opal/include/opal/sys/x86_64/timer.h
+@@ -36,7 +36,7 @@ static inline opal_timer_t
  opal_sys_timer_get_cycles(void)
  {
       uint32_t l, h;

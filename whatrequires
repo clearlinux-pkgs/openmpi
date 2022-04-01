@@ -1,7 +1,3 @@
 # This file contains recursive sources that require this package
 R-RInside
-R-Rmpi
-R-doMPI
-Theano
-horovod
 npb

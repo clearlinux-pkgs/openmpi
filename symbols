@@ -8623,7 +8623,6 @@ libompitrace.so.40:MPI_Reduce
 libompitrace.so.40:MPI_Request_free
 libompitrace.so.40:MPI_Send
 libompitrace.so.40:MPI_Sendrecv
-libopen-orted-mpir.so:MPIR_Breakpoint
 libopen-pal.so.40:mca_allocator_component_lookup
 libopen-pal.so.40:mca_base_close
 libopen-pal.so.40:mca_base_cmd_line_process_args
@@ -8885,6 +8884,7 @@ libopen-pal.so.40:opal_datatype_add
 libopen-pal.so.40:opal_datatype_clone
 libopen-pal.so.40:opal_datatype_commit
 libopen-pal.so.40:opal_datatype_compute_ptypes
+libopen-pal.so.40:opal_datatype_compute_remote_size
 libopen-pal.so.40:opal_datatype_contain_basic_datatypes
 libopen-pal.so.40:opal_datatype_copy_content_same_ddt
 libopen-pal.so.40:opal_datatype_create
@@ -9493,6 +9493,7 @@ libopen-pal.so.40:opal_value_xfer
 libopen-pal.so.40:opal_vasprintf
 libopen-pal.so.40:opal_vsnprintf
 libopen-pal.so.40:opal_warn_fork
+libopen-rte.so.40:MPIR_Breakpoint
 libopen-rte.so.40:orte_add_attribute
 libopen-rte.so.40:orte_app_ctx_state_to_str
 libopen-rte.so.40:orte_attr_key_to_str
@@ -9861,6 +9862,7 @@ libopen-rte.so.40:orte_submit_finalize
 libopen-rte.so.40:orte_submit_halt
 libopen-rte.so.40:orte_submit_init
 libopen-rte.so.40:orte_submit_job
+libopen-rte.so.40:orte_submit_job_state_update
 libopen-rte.so.40:orte_util_add_dash_host_nodes
 libopen-rte.so.40:orte_util_add_hostfile_nodes
 libopen-rte.so.40:orte_util_check_context_app

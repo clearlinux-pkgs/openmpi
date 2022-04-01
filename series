@@ -1,5 +1,3 @@
-#root.patch
-#lfence.patch
 #noyield.patch
 rdtsc.patch
 stateless.patch

@@ -1439,9 +1439,6 @@ Configure miss: whether IBV_EXP_QP_CREATE_ATOMIC_BE_REPLY is declared
 Configure miss: whether IBV_EXP_QP_INIT_ATTR_ATOMICS_ARG is declared
 Configure miss: whether IBV_EXP_QP_INIT_ATTR_ATOMICS_ARG is declared
 Configure miss: whether IBV_EXP_QP_INIT_ATTR_ATOMICS_ARG is declared
-Configure miss: whether PMIX_PACKAGE_RANK is declared
-Configure miss: whether PMIX_PACKAGE_RANK is declared
-Configure miss: whether PMIX_PACKAGE_RANK is declared
 Configure miss: whether _SC_LARGE_PAGESIZE is declared
 Configure miss: whether _SC_LARGE_PAGESIZE is declared
 Configure miss: whether _SC_LARGE_PAGESIZE is declared
