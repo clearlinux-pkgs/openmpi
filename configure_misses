@@ -449,6 +449,9 @@ Configure miss: if MCA component coll:hcoll can compile
 Configure miss: if MCA component coll:portals4 can compile
 Configure miss: if MCA component coll:portals4 can compile
 Configure miss: if MCA component coll:portals4 can compile
+Configure miss: if MCA component coll:ucc can compile
+Configure miss: if MCA component coll:ucc can compile
+Configure miss: if MCA component coll:ucc can compile
 Configure miss: if MCA component common:alps can compile
 Configure miss: if MCA component common:alps can compile
 Configure miss: if MCA component common:alps can compile
@@ -650,6 +653,9 @@ Configure miss: if MCA component schizo:singularity can compile
 Configure miss: if MCA component scoll:fca can compile
 Configure miss: if MCA component scoll:fca can compile
 Configure miss: if MCA component scoll:fca can compile
+Configure miss: if MCA component scoll:ucc can compile
+Configure miss: if MCA component scoll:ucc can compile
+Configure miss: if MCA component scoll:ucc can compile
 Configure miss: if MCA component snapc:full can compile
 Configure miss: if MCA component snapc:full can compile
 Configure miss: if MCA component snapc:full can compile
@@ -1385,6 +1391,24 @@ Configure miss: to see if Fortran compilers need additional linker flags
 Configure miss: to see if mpifort compiler needs additional linker flags
 Configure miss: to see if mpifort compiler needs additional linker flags
 Configure miss: to see if mpifort compiler needs additional linker flags
+Configure miss: ucc/api/ucc.h
+Configure miss: ucc/api/ucc.h
+Configure miss: ucc/api/ucc.h
+Configure miss: ucc/api/ucc.h
+Configure miss: ucc/api/ucc.h
+Configure miss: ucc/api/ucc.h
+Configure miss: ucc/api/ucc.h presence
+Configure miss: ucc/api/ucc.h presence
+Configure miss: ucc/api/ucc.h presence
+Configure miss: ucc/api/ucc.h presence
+Configure miss: ucc/api/ucc.h presence
+Configure miss: ucc/api/ucc.h presence
+Configure miss: ucc/api/ucc.h usability
+Configure miss: ucc/api/ucc.h usability
+Configure miss: ucc/api/ucc.h usability
+Configure miss: ucc/api/ucc.h usability
+Configure miss: ucc/api/ucc.h usability
+Configure miss: ucc/api/ucc.h usability
 Configure miss: ucp/api/ucp.h
 Configure miss: ucp/api/ucp.h
 Configure miss: ucp/api/ucp.h
