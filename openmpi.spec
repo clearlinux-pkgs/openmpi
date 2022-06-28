@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.4
-Release  : 47
+Release  : 48
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source1  : openmpi
@@ -135,7 +135,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1654033198
+export SOURCE_DATE_EPOCH=1656449029
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
@@ -145,10 +145,10 @@ unset LDFLAGS
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -209,7 +209,7 @@ cd ../buildavx512;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1654033198
+export SOURCE_DATE_EPOCH=1656449029
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-4.1.4/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3
@@ -232,8 +232,8 @@ install -m 0644 -p %{_sourcedir}/openmpi %{buildroot}/usr/share/modules/modulefi
 mkdir -p %{buildroot}/usr/share/defaults/etc/openmpi
 cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 ## install_append end
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
-/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -829,6 +829,68 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_monitoring.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_monitoring.so.50
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_monitoring.so.50.20.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_ompio.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_ompio.so.41
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_ompio.so.41.29.4
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_sm.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_sm.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmca_common_sm.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi.so.40.30.4
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_mpifh.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_mpifh.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_mpifh.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_usempi_ignore_tkr.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_usempi_ignore_tkr.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_usempi_ignore_tkr.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_usempif08.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_usempif08.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libmpi_usempif08.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libompitrace.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libompitrace.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libompitrace.so.40.30.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libopen-pal.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libopen-pal.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libopen-pal.so.40.30.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libopen-rte.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libopen-rte.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v3/libopen-rte.so.40.30.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/ompi_monitoring_prof.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_monitoring.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_monitoring.so.50
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_monitoring.so.50.20.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_ompio.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_ompio.so.41
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_ompio.so.41.29.4
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_sm.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_sm.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmca_common_sm.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi.so.40.30.4
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_mpifh.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_mpifh.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_mpifh.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_usempi_ignore_tkr.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_usempi_ignore_tkr.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_usempi_ignore_tkr.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_usempif08.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_usempif08.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libmpi_usempif08.so.40.30.0
+/usr/lib64/glibc-hwcaps/x86-64-v4/libompitrace.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libompitrace.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libompitrace.so.40.30.1
+/usr/lib64/glibc-hwcaps/x86-64-v4/libopen-pal.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libopen-pal.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libopen-pal.so.40.30.2
+/usr/lib64/glibc-hwcaps/x86-64-v4/libopen-rte.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libopen-rte.so.40
+/usr/lib64/glibc-hwcaps/x86-64-v4/libopen-rte.so.40.30.2
+/usr/lib64/glibc-hwcaps/x86-64-v4/ompi_monitoring_prof.so
 /usr/lib64/libmca_common_monitoring.so
 /usr/lib64/libmca_common_monitoring.so.50
 /usr/lib64/libmca_common_monitoring.so.50.20.0
@@ -962,7 +1024,6 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/lib64/openmpi/mca_topo_basic.so
 /usr/lib64/openmpi/mca_topo_treematch.so
 /usr/lib64/openmpi/mca_vprotocol_pessimist.so
-/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)
