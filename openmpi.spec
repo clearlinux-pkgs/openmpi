@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.4
-Release  : 48
+Release  : 49
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source1  : openmpi
@@ -1024,6 +1024,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/lib64/openmpi/mca_topo_basic.so
 /usr/lib64/openmpi/mca_topo_treematch.so
 /usr/lib64/openmpi/mca_vprotocol_pessimist.so
+/usr/share/clear/optimized-elf/other*
 
 %files license
 %defattr(0644,root,root,0755)
