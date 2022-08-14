@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.4
-Release  : 50
+Release  : 51
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source1  : openmpi
