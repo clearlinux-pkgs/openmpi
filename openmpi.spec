@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.4
-Release  : 52
+Release  : 53
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source1  : openmpi
@@ -237,6 +237,24 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 
 %files
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_ext.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_f08.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_f08_callbacks.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_f08_ext.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_f08_interfaces.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_f08_interfaces_callbacks.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/mpi_f08_types.mod
+/usr/lib64/glibc-hwcaps/x86-64-v3/pmpi_f08_interfaces.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_ext.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_f08.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_f08_callbacks.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_f08_ext.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_f08_interfaces.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_f08_interfaces_callbacks.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/mpi_f08_types.mod
+/usr/lib64/glibc-hwcaps/x86-64-v4/pmpi_f08_interfaces.mod
 /usr/lib64/mpi.mod
 /usr/lib64/mpi_ext.mod
 /usr/lib64/mpi_f08.mod
