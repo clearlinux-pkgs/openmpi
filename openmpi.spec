@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.4
-Release  : 55
+Release  : 56
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source1  : openmpi
@@ -135,20 +135,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656449029
+export SOURCE_DATE_EPOCH=1667438040
 export GCC_IGNORE_WERROR=1
-export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
+export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
-export FFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
+export FFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere -mtune=haswell"
 export FCFLAGS=$FFLAGS
 unset LDFLAGS
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -180,10 +180,10 @@ make  %{?_smp_mflags}
 popd
 unset PKG_CONFIG_PATH
 pushd ../buildavx512/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256 -Wl,-z,x86-64-v4"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256 -Wl,-z,x86-64-v4"
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=256"
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 -mtune=sapphirerapids "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 -mtune=sapphirerapids "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512"
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v4"
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
@@ -209,16 +209,16 @@ cd ../buildavx512;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1656449029
+export SOURCE_DATE_EPOCH=1667438040
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
-cp %{_builddir}/openmpi-4.1.4/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3
-cp %{_builddir}/openmpi-4.1.4/contrib/dist/mofed/debian/copyright %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3
-cp %{_builddir}/openmpi-4.1.4/ompi/mca/topo/treematch/treematch/COPYING %{buildroot}/usr/share/package-licenses/openmpi/1d219195f5b198de4d80822b54ee0511f0d38361
-cp %{_builddir}/openmpi-4.1.4/ompi/mca/topo/treematch/treematch/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/80be8a39adf3f4419e3f7153aba2ae318eeec910
-cp %{_builddir}/openmpi-4.1.4/opal/mca/event/libevent2022/libevent/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/458149cf961c544a997c5de2d3df83cab6e2c08c
-cp %{_builddir}/openmpi-4.1.4/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd
-cp %{_builddir}/openmpi-4.1.4/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d
+cp %{_builddir}/openmpi-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3 || :
+cp %{_builddir}/openmpi-%{version}/contrib/dist/mofed/debian/copyright %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3 || :
+cp %{_builddir}/openmpi-%{version}/ompi/mca/topo/treematch/treematch/COPYING %{buildroot}/usr/share/package-licenses/openmpi/1d219195f5b198de4d80822b54ee0511f0d38361 || :
+cp %{_builddir}/openmpi-%{version}/ompi/mca/topo/treematch/treematch/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/80be8a39adf3f4419e3f7153aba2ae318eeec910 || :
+cp %{_builddir}/openmpi-%{version}/opal/mca/event/libevent2022/libevent/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/458149cf961c544a997c5de2d3df83cab6e2c08c || :
+cp %{_builddir}/openmpi-%{version}/opal/mca/hwloc/hwloc201/hwloc/COPYING %{buildroot}/usr/share/package-licenses/openmpi/23ae9dd3b06c170d1abfbdf517a2e4fea90b7cdd || :
+cp %{_builddir}/openmpi-%{version}/opal/mca/pmix/pmix3x/pmix/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/c0fb365dcaaae482fe7c3673c97d0e8c6d21636d || :
 pushd ../buildavx2/
 %make_install_v3
 popd
