@@ -4,7 +4,7 @@
 #
 Name     : openmpi
 Version  : 4.1.4
-Release  : 56
+Release  : 57
 URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.4.tar.gz
 Source1  : openmpi
@@ -31,6 +31,9 @@ BuildRequires : pmix-dev
 BuildRequires : sed
 BuildRequires : systemd-dev
 BuildRequires : valgrind
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: rdtsc.patch
 Patch2: stateless.patch
 
@@ -135,7 +138,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1667438040
+export SOURCE_DATE_EPOCH=1672684138
 export GCC_IGNORE_WERROR=1
 export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere -mtune=haswell"
 export CXXFLAGS=$CFLAGS
@@ -145,10 +148,10 @@ unset LDFLAGS
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -209,7 +212,7 @@ cd ../buildavx512;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1667438040
+export SOURCE_DATE_EPOCH=1672684138
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3 || :
