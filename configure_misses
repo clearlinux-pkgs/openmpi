@@ -218,9 +218,6 @@ Configure miss: alps/apInfo.h presence
 Configure miss: alps/apInfo.h usability
 Configure miss: alps/apInfo.h usability
 Configure miss: alps/apInfo.h usability
-Configure miss: arc4random
-Configure miss: arc4random
-Configure miss: arc4random
 Configure miss: atomic_compare_exchange_strong_16
 Configure miss: atomic_compare_exchange_strong_16
 Configure miss: atomic_compare_exchange_strong_16
@@ -719,6 +716,12 @@ Configure miss: if OFI libfabric is available
 Configure miss: if PMIx timing is enabled
 Configure miss: if PMIx timing is enabled
 Configure miss: if PMIx timing is enabled
+Configure miss: if UCC supports float128 and float32(64,128)_complex datatypes
+Configure miss: if UCC supports float128 and float32(64,128)_complex datatypes
+Configure miss: if UCC supports float128 and float32(64,128)_complex datatypes
+Configure miss: if UCC supports float128 and float32(64,128)_complex datatypes
+Configure miss: if UCC supports float128 and float32(64,128)_complex datatypes
+Configure miss: if UCC supports float128 and float32(64,128)_complex datatypes
 Configure miss: if __int128 atomic compare-and-swap is always lock-free
 Configure miss: if __int128 atomic compare-and-swap is always lock-free
 Configure miss: if __int128 atomic compare-and-swap is always lock-free
