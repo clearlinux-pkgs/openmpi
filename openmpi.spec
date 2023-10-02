@@ -4,10 +4,10 @@
 # Using build pattern: configure
 #
 Name     : openmpi
-Version  : 4.1.5
-Release  : 62
-URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz
-Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz
+Version  : 4.1.6
+Release  : 63
+URL      : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.6.tar.gz
+Source0  : https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.6.tar.gz
 Source1  : openmpi
 Summary  : An extended/exascale implementation of PMI
 Group    : Development/Tools
@@ -113,15 +113,15 @@ man components for the openmpi package.
 
 
 %prep
-%setup -q -n openmpi-4.1.5
-cd %{_builddir}/openmpi-4.1.5
+%setup -q -n openmpi-4.1.6
+cd %{_builddir}/openmpi-4.1.6
 %patch -P 1 -p1
 %patch -P 2 -p1
 pushd ..
-cp -a openmpi-4.1.5 buildavx2
+cp -a openmpi-4.1.6 buildavx2
 popd
 pushd ..
-cp -a openmpi-4.1.5 buildavx512
+cp -a openmpi-4.1.6 buildavx512
 popd
 
 %build
@@ -129,21 +129,26 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1687222560
+export SOURCE_DATE_EPOCH=1696282273
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
-export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere"
-export CXXFLAGS=$CFLAGS
-export FFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere"
-export FCFLAGS=$FFLAGS
-unset LDFLAGS
+CLEAR_INTERMEDIATE_CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -fPIC -march=westmere"
+CLEAR_INTERMEDIATE_CXXFLAGS=$CLEAR_INTERMEDIATE_CFLAGS
+CLEAR_INTERMEDIATE_FFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere"
+CLEAR_INTERMEDIATE_FCFLAGS=$CLEAR_INTERMEDIATE_FFLAGS
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -156,11 +161,11 @@ make  %{?_smp_mflags}
 
 unset PKG_CONFIG_PATH
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v3 "
+LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -175,11 +180,11 @@ make  %{?_smp_mflags}
 popd
 unset PKG_CONFIG_PATH
 pushd ../buildavx512/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512"
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512"
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v4"
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 -Wl,-z,x86-64-v4 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v4 -mprefer-vector-width=512 "
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -m64 -march=x86-64-v4 "
 %configure --disable-static --enable-branch-probabilities \
 --enable-builtin-atomics \
 --with-wrapper-cflags-prefix="-O3" \
@@ -204,7 +209,25 @@ cd ../buildavx512;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1687222560
+export GCC_IGNORE_WERROR=1
+CLEAR_INTERMEDIATE_CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -fPIC -march=westmere"
+CLEAR_INTERMEDIATE_CXXFLAGS=$CLEAR_INTERMEDIATE_CFLAGS
+CLEAR_INTERMEDIATE_FFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=westmere"
+CLEAR_INTERMEDIATE_FCFLAGS=$CLEAR_INTERMEDIATE_FFLAGS
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+export SOURCE_DATE_EPOCH=1696282273
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openmpi
 cp %{_builddir}/openmpi-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/openmpi/2530bd3ed2c1661445dacd664b277d1f092c56f3 || :
@@ -836,7 +859,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /V3/usr/lib64/libmca_common_monitoring.so.50.20.0
 /V3/usr/lib64/libmca_common_ompio.so.41.29.4
 /V3/usr/lib64/libmca_common_sm.so.40.30.0
-/V3/usr/lib64/libmpi.so.40.30.5
+/V3/usr/lib64/libmpi.so.40.30.6
 /V3/usr/lib64/libmpi_mpifh.so.40.30.0
 /V3/usr/lib64/libmpi_usempi_ignore_tkr.so.40.30.0
 /V3/usr/lib64/libmpi_usempif08.so.40.30.0
@@ -949,7 +972,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /V4/usr/lib64/libmca_common_monitoring.so.50.20.0
 /V4/usr/lib64/libmca_common_ompio.so.41.29.4
 /V4/usr/lib64/libmca_common_sm.so.40.30.0
-/V4/usr/lib64/libmpi.so.40.30.5
+/V4/usr/lib64/libmpi.so.40.30.6
 /V4/usr/lib64/libmpi_mpifh.so.40.30.0
 /V4/usr/lib64/libmpi_usempi_ignore_tkr.so.40.30.0
 /V4/usr/lib64/libmpi_usempif08.so.40.30.0
@@ -1070,7 +1093,7 @@ cp -p %{buildroot}/etc/* %{buildroot}/usr/share/defaults/etc/openmpi/
 /usr/lib64/libmca_common_sm.so.40.30.0
 /usr/lib64/libmpi.so
 /usr/lib64/libmpi.so.40
-/usr/lib64/libmpi.so.40.30.5
+/usr/lib64/libmpi.so.40.30.6
 /usr/lib64/libmpi_mpifh.so
 /usr/lib64/libmpi_mpifh.so.40
 /usr/lib64/libmpi_mpifh.so.40.30.0

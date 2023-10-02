@@ -371,18 +371,6 @@ Configure miss: if --enable-memchecker was specified
 Configure miss: if --with-cuda is set
 Configure miss: if --with-cuda is set
 Configure miss: if --with-cuda is set
-Configure miss: if .align directive takes logarithmic value
-Configure miss: if .align directive takes logarithmic value
-Configure miss: if .align directive takes logarithmic value
-Configure miss: if .align directive takes logarithmic value
-Configure miss: if .align directive takes logarithmic value
-Configure miss: if .align directive takes logarithmic value
-Configure miss: if .proc/endp is needed
-Configure miss: if .proc/endp is needed
-Configure miss: if .proc/endp is needed
-Configure miss: if .proc/endp is needed
-Configure miss: if .proc/endp is needed
-Configure miss: if .proc/endp is needed
 Configure miss: if C11 __int128 atomic compare-and-swap is always lock-free
 Configure miss: if C11 __int128 atomic compare-and-swap is always lock-free
 Configure miss: if C11 __int128 atomic compare-and-swap is always lock-free
