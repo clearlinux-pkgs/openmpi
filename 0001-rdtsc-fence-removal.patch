@@ -1,0 +1,26 @@
+From 9c3a02a2dc76717c7d77c1936f98108bd2eb4c8a Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 24 Jul 2024 12:08:52 -0700
+Subject: [PATCH 1/2] rdtsc fence removal
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ opal/include/opal/sys/x86_64/timer.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/opal/include/opal/sys/x86_64/timer.h b/opal/include/opal/sys/x86_64/timer.h
+index cbef5e8..3ffc4ea 100644
+--- a/opal/include/opal/sys/x86_64/timer.h
++++ b/opal/include/opal/sys/x86_64/timer.h
+@@ -38,7 +38,7 @@ typedef uint64_t opal_timer_t;
+ static inline opal_timer_t opal_sys_timer_get_cycles(void)
+ {
+     uint32_t l, h;
+-    __asm__ __volatile__("lfence\n\t"
++    __asm__ __volatile__(
+                          "rdtsc\n\t"
+                          : "=a"(l), "=d"(h));
+     return ((opal_timer_t) l) | (((opal_timer_t) h) << 32);
+-- 
+2.45.1
+

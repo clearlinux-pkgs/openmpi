@@ -1,0 +1,33 @@
+From f0eab11c92352381c5b5bdba48d535223af4eec9 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 24 Jul 2024 12:40:17 -0700
+Subject: [PATCH 2/2] stateless
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ opal/mca/base/mca_base_var.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/opal/mca/base/mca_base_var.c b/opal/mca/base/mca_base_var.c
+index b9860c6..1cddec6 100644
+--- a/opal/mca/base/mca_base_var.c
++++ b/opal/mca/base/mca_base_var.c
+@@ -409,11 +409,13 @@ int mca_base_var_cache_files(bool rel_path_search)
+ 
+     if (NULL == getenv("OPAL_SYS_PARAMS_GIVEN")) {
+         if (NULL != tmp) {
+-            opal_asprintf(&mca_base_var_files, "%s,%s" OPAL_PATH_SEP "openmpi-mca-params.conf", tmp,
++            opal_asprintf(&mca_base_var_files, "%s,%s,%s" OPAL_PATH_SEP "openmpi-mca-params.conf", tmp,
++                          "/usr/share/defaults/etc/openmpi/openmpi-mca-params.conf",
+                           opal_install_dirs.sysconfdir);
+             free(tmp);
+         } else {
+-            opal_asprintf(&mca_base_var_files, "%s" OPAL_PATH_SEP "openmpi-mca-params.conf",
++            opal_asprintf(&mca_base_var_files, "%s,%s" OPAL_PATH_SEP "openmpi-mca-params.conf",
++                          "/usr/share/defaults/etc/openmpi/openmpi-mca-params.conf",
+                           opal_install_dirs.sysconfdir);
+         }
+     } else {
+-- 
+2.45.1
+

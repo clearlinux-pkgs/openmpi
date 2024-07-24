@@ -1,0 +1,10 @@
+/etc/:
+openmpi-mca-params.conf
+openmpi-totalview.tcl
+openmpi-totalview.tcl
+prte-default-hostfile
+prte-default-hostfile
+prte-mca-params.conf
+prte-mca-params.conf' ']'
+prte.conf
+prte.conf

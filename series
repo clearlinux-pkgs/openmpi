@@ -1,3 +1,2 @@
-#noyield.patch
-rdtsc.patch
-stateless.patch
+0001-rdtsc-fence-removal.patch
+0002-stateless.patch
