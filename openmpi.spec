@@ -7,7 +7,7 @@
 #
 Name     : openmpi
 Version  : 5.0.5
-Release  : 64
+Release  : 65
 URL      : https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.5.tar.gz
 Source0  : https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.5.tar.gz
 Source1  : openmpi
@@ -19,6 +19,7 @@ Requires: openmpi-data = %{version}-%{release}
 Requires: openmpi-lib = %{version}-%{release}
 Requires: openmpi-license = %{version}-%{release}
 Requires: openmpi-man = %{version}-%{release}
+Requires: pmix
 BuildRequires : buildreq-configure
 BuildRequires : flex
 BuildRequires : gfortran
